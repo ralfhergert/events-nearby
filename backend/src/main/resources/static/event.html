@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+	<title>Event</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js" type="text/javascript"></script>
+	<script src="event.js" type="text/javascript"></script>
+</head>
+<body>
+<h1>Edit Event</h1>
+<form ng-submit="submit()" ng-controller="EventController">
+	<div>
+		<label for="event-id">ID</label>
+		<input id="event-id" ng-model="event.id" type="text"/>
+	</div>
+	<div>
+		<label for="event-title">Title</label>
+		<input id="event-title" ng-model="event.title" type="text"/>
+	</div>
+	<div>
+		<label for="event-description">Description</label>
+		<input id="event-description" ng-model="event.description" type="text"/>
+	</div>
+	<input type="submit" id="submit" value="Submit" />
+</form>
+</body>
+</html>

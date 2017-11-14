@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<script type="text/javascript" src="lib/jquery-3.2.1.min.js"></script>
+<style type="text/css">
+body { margin: 0; }
+#eventListContainer { background-color: red;}
+.layout-c4 #eventListContainer { width: 300px; min-height: 100px;}
+</style>
+</head>
+<body>
+<div id="eventListContainer">
+<div id="eventList">
+</div>
+</div>
+<div id="eventDetailsContainer">
+<div id="eventDetails">
+</div>
+</div>
+<script type="text/javascript">
+jQuery(window).resize(function() {
+	var width = jQuery('body').innerWidth();
+	if (width > 300) {
+		jQuery('body').addClass('layout-c4');
+	}
+}).resize();
+</script>
+</body>
+</html>
