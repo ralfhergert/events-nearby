@@ -7,6 +7,10 @@ buildscript {
 	}
 }
 
+plugins {
+	id "com.moowork.node" version "1.2.0"
+}
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
@@ -18,6 +22,10 @@ repositories {
 
 sourceCompatibility = 1.8
 
+node {
+	download = true
+}
+
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web:+') {
 		exclude module: "spring-boot-starter-tomcat"
@@ -26,3 +34,35 @@ dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-data-jpa:+'
 	runtime 'com.h2database:h2:+'
 }
+
+task compileTypeScript(type: NodeTask, dependsOn: npm_update) {
+	description = "This task will compile all TypeScript into JavaScript files"
+	ext.destDir = new File("${buildDir}/generated/js")
+	script = file('node_modules/typescript/lib/tsc.js')
+	args = [
+		'--outDir', destDir,
+		'--target', 'ES5',
+		'--alwaysStrict',
+		'--lib', 'es6,dom',
+		'--newLine', 'lf'
+	] + fileTree(dir: 'src/main/ts').files
+}
+
+task concatJavaScript(dependsOn: compileTypeScript) {
+	description = "This task will assemble all JavaScript files into one single file"
+	inputs.files(fileTree(dir: "${buildDir}/generated/js").files)
+	def destDir = new File("${buildDir}/resources/main/static/js")
+	def jsFile = new File(destDir, 'localEvents.js')
+	outputs.file(jsFile)
+	doLast {
+		destDir.mkdirs()
+		jsFile.text = 'var exports = {};\n'
+		println 'Concatenating files:'
+		fileTree(dir: "${buildDir}/generated/js").files.each { file ->
+			println file
+			jsFile << file.text << '\n'
+		}
+	}
+}
+
+bootRun.dependsOn concatJavaScript
