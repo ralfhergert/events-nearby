@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.UUID;
 
 /**
- * This entity maps event to be stored in a database,
+ * This entity maps event to be stored in a database.
  */
 @Entity
 public class EventEntity { //extends AbstractPersistable<UUID> {
