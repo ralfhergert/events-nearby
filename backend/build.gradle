@@ -56,7 +56,7 @@ task concatJavaScript(dependsOn: compileTypeScript) {
 	outputs.file(jsFile)
 	doLast {
 		destDir.mkdirs()
-		jsFile.text = 'var exports = {};\n'
+		jsFile.text = 'var exports = {};\nfunction require() { return exports; }\n'
 		println 'Concatenating files:'
 		fileTree(dir: "${buildDir}/generated/js").files.each { file ->
 			println file
