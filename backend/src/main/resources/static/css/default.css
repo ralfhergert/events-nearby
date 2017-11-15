@@ -1,0 +1,13 @@
+input,textarea {
+	border: 1px solid lightgray;
+	border-radius: 3px;
+	padding: 3px;
+}
+
+.validation-error {
+	border-left: 4px solid #f04129;
+}
+
+.validation-ok {
+	border-left: 4px solid #60ee5f;
+}
