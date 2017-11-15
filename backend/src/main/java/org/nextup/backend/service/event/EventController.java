@@ -3,10 +3,7 @@ package org.nextup.backend.service.event;
 import org.nextup.backend.entity.EventEntity;
 import org.nextup.backend.repository.EventRepository;
 import org.nextup.backend.to.Event;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -31,7 +28,7 @@ public class EventController {
 	}
 
 	@RequestMapping(path = "api/event", method = RequestMethod.POST)
-	public Event saveEvent(@Valid Event event, @RequestParam(value="validateOnly", required = false, defaultValue = "true") final boolean validationOnly) {
+	public Event saveEvent(@Valid @RequestBody Event event, @RequestParam(value="validateOnly", required = false, defaultValue = "true") final boolean validationOnly) {
 		EventEntity entity = event.getId() != null ? eventRepository.findOne(event.getId()) : null;
 		if (entity == null) {
 			entity = new EventEntity();
