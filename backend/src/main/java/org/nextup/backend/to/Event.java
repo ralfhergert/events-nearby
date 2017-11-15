@@ -2,6 +2,7 @@ package org.nextup.backend.to;
 
 import org.nextup.backend.entity.EventEntity;
 
+import javax.validation.constraints.NotNull;
 import java.net.URL;
 import java.util.Date;
 import java.util.UUID;
@@ -15,8 +16,11 @@ public class Event {
 	private LocalizableString title;
 	private LocalizableString description;
 	private URL image;
+	@NotNull
 	private Location location;
+	@NotNull
 	private Date startDate;
+	@NotNull
 	private Date endDate;
 
 	public Event() {}

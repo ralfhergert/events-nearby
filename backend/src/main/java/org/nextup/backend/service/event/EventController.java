@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -30,7 +31,7 @@ public class EventController {
 	}
 
 	@RequestMapping(path = "api/event", method = RequestMethod.POST)
-	public Event saveEvent(Event event) {
+	public Event saveEvent(@Valid Event event, @RequestParam(value="validateOnly", required = false, defaultValue = "true") final boolean validationOnly) {
 		EventEntity entity = event.getId() != null ? eventRepository.findOne(event.getId()) : null;
 		if (entity == null) {
 			entity = new EventEntity();
@@ -41,7 +42,7 @@ public class EventController {
 		entity.setAddress(event.getLocation() != null ? event.getLocation().getAddress() : null);
 		entity.setStartDate(event.getStartDate());
 		entity.setEndDate(event.getEndDate());
-		return new Event(eventRepository.save(entity));
+		return new Event(validationOnly ? entity : eventRepository.save(entity));
 	}
 
 	@RequestMapping(path = "api/events", method = RequestMethod.GET)
