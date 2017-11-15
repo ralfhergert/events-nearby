@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -40,5 +42,14 @@ public class EventController {
 		entity.setStartTime(event.getStartTime());
 		entity.setEndTime(event.getEndTime());
 		return new Event(eventRepository.save(entity));
+	}
+
+	@RequestMapping(path = "api/events", method = RequestMethod.GET)
+	public List<Event> getEvents(@RequestParam(value="lon", required = false) Double longitude, @RequestParam(value = "lat", required = false) Double latitude) {
+		final List<Event> events = new ArrayList<>();
+		for (EventEntity event : eventRepository.findAll()) {
+			events.add(new Event(event));
+		}
+		return events;
 	}
 }
