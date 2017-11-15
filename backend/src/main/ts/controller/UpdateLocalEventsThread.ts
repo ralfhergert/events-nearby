@@ -12,13 +12,9 @@ export class UpdateLocalEventsThread {
 		jQuery.ajax('/api/events', {
 			success: function(data: Array<LocalEvent>, textStatus: string, jqXHR: any) {
 				// inform all error listeners that everything is ok.
-				for (let listener of thisObj.errorListener) {
-					listener.resumeToNormal();
-				}
+				thisObj.errorListener.forEach(listener => { listener.resumeToNormal(); });
 				// info all listeners
-				for (let listener of thisObj.eventsListener) {
-					listener.updateEvents(data);
-				}
+				thisObj.eventsListener.forEach(listener => { listener.updateEvents(data); });
 			},
 			error: function() {
 				// inform all error listener that we currently have errors.
