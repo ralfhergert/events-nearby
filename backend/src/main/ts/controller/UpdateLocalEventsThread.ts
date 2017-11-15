@@ -1,4 +1,5 @@
 import {LocalEvent} from '../model/LocalEvent';
+import {ErrorListener} from "../view/ErrorListener";
 
 export class UpdateLocalEventsThread {
 	private eventsListener: Array<LocalEventsListener> = [];
@@ -18,7 +19,7 @@ export class UpdateLocalEventsThread {
 			},
 			error: function() {
 				// inform all error listener that we currently have errors.
-				thisObj.errorListener.forEach(listener => { listener.showError(); });
+				thisObj.errorListener.forEach(listener => { listener.showError('Could not update events from server. Will try again...'); });
 			},
 			complete: function() {
 				// create a new timeout
@@ -38,9 +39,4 @@ export class UpdateLocalEventsThread {
 
 export interface LocalEventsListener {
 	updateEvents(events: Array<LocalEvent>);
-}
-
-export interface ErrorListener {
-	showError(): void;
-	resumeToNormal(): void;
 }
