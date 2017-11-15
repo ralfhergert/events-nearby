@@ -19,6 +19,10 @@ public class EventController {
 
 	private EventRepository eventRepository;
 
+	public EventController(EventRepository eventRepository) {
+		this.eventRepository = eventRepository;
+	}
+
 	@RequestMapping(path = "api/event", method = RequestMethod.GET)
 	public Event getEvent(@RequestParam(value="id", required = true) UUID id) {
 		return new Event()
