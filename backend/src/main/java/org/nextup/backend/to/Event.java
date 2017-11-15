@@ -16,8 +16,8 @@ public class Event {
 	private LocalizableString description;
 	private URL image;
 	private Location location;
-	private Date startTime;
-	private Date endTime;
+	private Date startDate;
+	private Date endDate;
 
 	public Event() {}
 
@@ -27,8 +27,8 @@ public class Event {
 		description = entity.getDescription();
 		image = entity.getImage();
 		location = new Location().setAddress(entity.getAddress());
-		startTime = entity.getStartTime();
-		endTime = entity.getEndTime();
+		startDate = entity.getStartDate();
+		endDate = entity.getEndDate();
 	}
 
 	public UUID getId() {
@@ -76,21 +76,21 @@ public class Event {
 		return this;
 	}
 
-	public Date getStartTime() {
-		return startTime;
+	public Date getStartDate() {
+		return startDate;
 	}
 
-	public Event setStartTime(Date startTime) {
-		this.startTime = startTime;
+	public Event setStartDate(Date startDate) {
+		this.startDate = startDate;
 		return this;
 	}
 
-	public Date getEndTime() {
-		return endTime;
+	public Date getEndDate() {
+		return endDate;
 	}
 
-	public Event setEndTime(Date endTime) {
-		this.endTime = endTime;
+	public Event setEndDate(Date endDate) {
+		this.endDate = endDate;
 		return this;
 	}
 }

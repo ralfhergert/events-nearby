@@ -2,8 +2,6 @@ package org.nextup.backend.entity;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.nextup.backend.to.LocalizableString;
-import org.nextup.backend.to.Location;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,9 +26,9 @@ public class EventEntity { //extends AbstractPersistable<UUID> {
 	private URL image;
 	private String address;
 	@NotNull
-	private Date startTime;
+	private Date startDate;
 	@NotNull
-	private Date endTime;
+	private Date endDate;
 
 	public UUID getId() {
 		return id;
@@ -72,19 +70,19 @@ public class EventEntity { //extends AbstractPersistable<UUID> {
 		this.address = address;
 	}
 
-	public Date getStartTime() {
-		return startTime;
+	public Date getStartDate() {
+		return startDate;
 	}
 
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 
-	public Date getEndTime() {
-		return endTime;
+	public Date getEndDate() {
+		return endDate;
 	}
 
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 }
