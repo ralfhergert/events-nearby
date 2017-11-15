@@ -3,7 +3,6 @@ package org.nextup.backend.service.event;
 import org.nextup.backend.entity.EventEntity;
 import org.nextup.backend.repository.EventRepository;
 import org.nextup.backend.to.Event;
-import org.nextup.backend.to.LocalizableString;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,10 +23,8 @@ public class EventController {
 	}
 
 	@RequestMapping(path = "api/event", method = RequestMethod.GET)
-	public Event getEvent(@RequestParam(value="id", required = true) UUID id) {
-		return new Event()
-			.setId(id)
-			.setTitle(new LocalizableString().add("de", "Hallo Steffi"));
+	public Event getEvent(@RequestParam(value="id") UUID id) {
+		return new Event(eventRepository.findOne(id));
 	}
 
 	@RequestMapping(path = "api/event", method = RequestMethod.POST)
