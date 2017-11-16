@@ -70,7 +70,10 @@ export class CreateEventAction {
 						thisObj.$target.find('[name]').removeClass('validation-error').addClass('validation-ok');
 						// mark all fields which got still complains.
 						response['errors'].forEach(error => {
-							thisObj.$target.find('[name="' + error['field'] + '"]').removeClass('validation-ok').addClass('validation-error');
+							thisObj.$target.find('[name="' + error['field'] + '"]')
+								.not('[data-ignore-validation-error-' + error['code'] + ']')
+								.removeClass('validation-ok')
+								.addClass('validation-error');
 						});
 						// remove all oks from children which belong to invalid parents.
 						thisObj.$target.find('.validation-error .validation-ok').removeClass('validation-ok');
