@@ -1,4 +1,13 @@
-input,textarea {
+/* remove predefined styles for select fields */
+select {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border: none;
+	border-radius: 0;
+}
+
+input,textarea,select {
 	border: 1px solid lightgray;
 	border-radius: 3px;
 	padding: 3px;
@@ -10,4 +19,8 @@ input,textarea {
 
 .validation-ok {
 	border-left: 4px solid #60ee5f;
+}
+
+select.languageSelector {
+	max-width: 80px;
 }

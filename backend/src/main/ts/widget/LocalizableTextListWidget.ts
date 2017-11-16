@@ -1,3 +1,5 @@
+import {LanguageSelectorWidget} from "./LanguageSelectorWidget";
+import {WidgetDestroyedListener} from "../view/WidgetDestroyedListener";
 /**
  * This widget carries multiple {@link LocalizableTextWidget}.
  */
@@ -7,6 +9,7 @@ export class LocalizableTextListWidget {
 	private name: string;
 	private $list: any;
 	private index = 0;
+	private textWidgets: Array<LocalizableTextWidget> = [];
 
 	constructor($target: any, type: LocalizableFieldType, name: string) {
 		let thisObj = this;
@@ -25,14 +28,23 @@ export class LocalizableTextListWidget {
 	}
 
 	public createFurtherTextWidget(): void {
-		this.$list.append(LocalizableTextWidget.create(this.type, this.name + '.' + this.index++).$target);
+		let thisObj = this;
+		let widget = new LocalizableTextWidget(this.type, this.name + '.' + this.index++);
+		this.textWidgets.push(widget);
+		this.$list.append(widget.$target);
+		// register a widget destroyed listener to remove it from the list again.
+		widget.addWidgetDestroyListener({
+			destroyed(widget: LocalizableTextWidget) {
+				thisObj.textWidgets.splice(thisObj.textWidgets.indexOf(widget), 1);
+			}
+		});
 	}
 
 	public getValues(): any {
 		let values = {};
-		this.$list.children().each(function() {
-			let locale = jQuery(this).children('.locale').val() as string;
-			let text = jQuery(this).children('.text').val() as string;
+		this.textWidgets.forEach(widget =>  {
+			let locale = widget.locale();
+			let text = widget.text();
 			if (locale.length > 0 && text.length > 0) {
 				values[locale] = text;
 			}
@@ -46,28 +58,43 @@ export class LocalizableTextListWidget {
  */
 export class LocalizableTextWidget {
 	readonly $target: any; // should be a jQuery node.
-	private name: string;
+	readonly name: string;
+	readonly languageSelector: LanguageSelectorWidget;
+	private destroyListeners: Array<WidgetDestroyedListener<LocalizableTextWidget>> = [];
 
-	private constructor($target: any, name: string) {
-		this.$target = $target;
+	constructor(type: LocalizableFieldType, name: string) {
+		let thisObj = this;
 		this.name = name;
-	}
-
-	public static create(type: LocalizableFieldType, name: string): LocalizableTextWidget {
-		let $node = jQuery('<div class="localizable-text">')
-			.append(jQuery('<input type="text" class="locale"/>').attr('name', name + '.locale'));
+		this.$target = jQuery('<div class="localizable-text">');
+		// create a language selector
+		this.languageSelector = new LanguageSelectorWidget(name + '.locale');
+		this.languageSelector.$target.addClass('locale').appendTo(this.$target);
+		// create an input or textarea
 		if (type === LocalizableFieldType.Input) {
-			$node.append(jQuery('<input type="text" class="text"/>').attr('name', name + '.text'));
+			this.$target.append(jQuery('<input type="text" class="text"/>').attr('name', name + '.text'));
 		} else {
-			$node.append(jQuery('<textarea class="text"/>').attr('name', name + '.text'));
+			this.$target.append(jQuery('<textarea class="text"/>').attr('name', name + '.text'));
 		}
 		// create a delete button.
 		jQuery('<input type="button" value="Remove">')
-			.appendTo($node)
+			.appendTo(this.$target)
 			.click(function() {
-				$node.remove();
+				thisObj.$target.remove();
+				// inform all destroy listeners that they can remove links to this widget instance.
+				thisObj.destroyListeners.forEach(listener => { listener.destroyed(thisObj); });
 			});
-		return new LocalizableTextWidget($node, name);
+	}
+
+	public addWidgetDestroyListener(listener: WidgetDestroyedListener<LocalizableTextWidget>): void {
+		this.destroyListeners.push(listener);
+	}
+
+	public locale(): string {
+		return this.languageSelector.value();
+	}
+
+	public text(): string {
+		return this.$target.children('.text').val();
 	}
 }
 
