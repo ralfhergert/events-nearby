@@ -45,6 +45,8 @@ export class LocalizableTextListWidget {
 			}
 		});
 		thisObj.updateSelectableLanguages();
+		// trigger a change event, that the outer action revalidates
+		window.setTimeout(function() { thisObj.$target.change(); });
 	}
 
 	protected updateSelectableLanguages(): void {
