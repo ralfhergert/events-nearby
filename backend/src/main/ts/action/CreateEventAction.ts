@@ -81,6 +81,10 @@ export class CreateEventAction {
 					// retry
 					thisObj.timeoutHandle = window.setTimeout(function() { thisObj.submit(validateOnly); }, 10000); // 10s
 				}
+			},
+			complete: function() {
+				// remove validation-ok from all elements which should only show error-messages.
+				thisObj.$target.find('.showOnlyValidationErrors.validation-ok').removeClass('validation-ok');
 			}
 		});
 	}
