@@ -4,8 +4,8 @@ export class LanguageSelectorWidget {
 	readonly $target: any;
 	static languages = new Languages();
 
-	constructor(name: string, disabledLanguages: Array<string>, selectionCandidate: string) {
-		this.$target = jQuery('<select class="languageSelector">').attr('name', name);
+	constructor(disabledLanguages: Array<string>, selectionCandidate: string) {
+		this.$target = jQuery('<select class="languageSelector">');
 		// render all options.
 		for (let language in LanguageSelectorWidget.languages) {
 			jQuery('<option>')

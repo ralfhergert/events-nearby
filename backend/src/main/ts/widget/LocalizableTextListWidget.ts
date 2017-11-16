@@ -8,7 +8,6 @@ export class LocalizableTextListWidget {
 	private type: LocalizableFieldType;
 	private name: string;
 	private $list: any;
-	private index = 0;
 	private textWidgets: Array<LocalizableTextWidget> = [];
 
 	constructor($target: any, type: LocalizableFieldType, name: string) {
@@ -29,7 +28,7 @@ export class LocalizableTextListWidget {
 
 	public createFurtherTextWidget(): void {
 		let thisObj = this;
-		let widget = new LocalizableTextWidget(this.type, this.name + '.' + this.index++, this.allSelectedLanguages());
+		let widget = new LocalizableTextWidget(this.type, this.name, this.allSelectedLanguages());
 		this.textWidgets.push(widget);
 		this.$list.append(widget.$target);
 		// register a change listener for language changes.
@@ -58,7 +57,7 @@ export class LocalizableTextListWidget {
 		this.textWidgets.forEach(widget =>  {
 			let locale = widget.locale();
 			let text = widget.text();
-			if (locale.length > 0 && text.length > 0) {
+			if (locale.length > 0) {
 				values[locale] = text;
 			}
 		});
@@ -90,17 +89,21 @@ export class LocalizableTextWidget {
 		this.name = name;
 		this.$target = jQuery('<div class="localizable-text">');
 		// create a language selector
-		this.languageSelector = new LanguageSelectorWidget(name + '.locale', disabledLanguages, navigator.language);
+		this.languageSelector = new LanguageSelectorWidget(disabledLanguages, navigator.language);
 		this.languageSelector.$target.addClass('locale').appendTo(this.$target);
 		this.languageSelector.$target.change(function() {
-			thisObj.languageSelectionChangedListener.forEach(listener => { listener.changed(); });
+			let locale = jQuery(this).val() as string;
+			thisObj.languageSelectionChangedListener.forEach(listener => { listener.changed(locale); });
+			// alter the name of the text-field correspondingly.
+			thisObj.$target.children('.text').attr('name', name + '[' + locale + ']');
 		});
 		// create an input or textarea
 		if (type === LocalizableFieldType.Input) {
-			this.$target.append(jQuery('<input type="text" class="text"/>').attr('name', name + '.text'));
+			this.$target.append(jQuery('<input type="text" class="text"/>'));
 		} else {
-			this.$target.append(jQuery('<textarea class="text"/>').attr('name', name + '.text'));
+			this.$target.append(jQuery('<textarea class="text"/>'));
 		}
+		thisObj.$target.children('.text').attr('name', name + '[' + this.locale() + ']');
 		// create a delete button.
 		jQuery('<input type="button" value="Remove">')
 			.appendTo(this.$target)
@@ -138,5 +141,5 @@ export enum LocalizableFieldType {
 }
 
 interface LanguageSelectionChangedListener {
-	changed(): void;
+	changed(language: string): void;
 }

@@ -1,6 +1,8 @@
 package org.nextup.backend.to;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.nextup.backend.entity.EventEntity;
+import org.nextup.backend.validation.NoEmptyValues;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -15,8 +17,12 @@ public class Event {
 
 	private UUID id;
 	@NotNull
+	@NotEmpty
+	@NoEmptyValues
 	private LocalizableString title;
 	@NotNull
+	@NotEmpty
+	@NoEmptyValues
 	private LocalizableString description;
 	private URL image;
 	@NotNull
