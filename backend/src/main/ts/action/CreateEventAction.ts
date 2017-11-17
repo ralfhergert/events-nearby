@@ -77,6 +77,11 @@ export class CreateEventAction {
 						thisObj.$target.find('[name]').removeClass('validation-error').addClass('validation-ok');
 						// mark all fields which got still complains.
 						response['errors'].forEach(error => {
+							if (!error['field'] && error['code'] === 'ScriptAssert') {
+								if (error['defaultMessage'] === 'endDate not after startDate') {
+									error['field'] = 'endDate';
+								}
+							}
 							thisObj.$target.find('[name="' + error['field'] + '"]')
 								.not('[data-ignore-validation-error-' + error['code'] + ']')
 								.removeClass('validation-ok')

@@ -1,6 +1,7 @@
 package org.nextup.backend.to;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.ScriptAssert;
 import org.nextup.backend.entity.EventEntity;
 import org.nextup.backend.validation.NoEmptyValues;
 
@@ -14,6 +15,7 @@ import java.util.UUID;
 /**
  * This transfer object transports an event.
  */
+@ScriptAssert(lang = "javascript", script = "_this.startDate.before(_this.endDate)", message="endDate not after startDate")
 public class Event {
 
 	private UUID id;
