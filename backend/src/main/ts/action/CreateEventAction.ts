@@ -65,6 +65,7 @@ export class CreateEventAction {
 				// all ok - remove validation messages
 				thisObj.$target.find('[name]').removeClass('validation-error').addClass('validation-ok');
 				thisObj.$target.find('#submit').removeClass('unarmed').addClass('armed');
+				thisObj.$target.find('.validation-message').slideUp();
 			},
 			error: function(jqXHR: any, status: string, error: string) {
 				if (jqXHR.status == 400) { // BadRequest due to validation errors.
@@ -75,6 +76,8 @@ export class CreateEventAction {
 					if (response != null && response['errors'] != null) {
 						// set all fields ok.
 						thisObj.$target.find('[name]').removeClass('validation-error').addClass('validation-ok');
+						// mark all existing validation messages.
+						thisObj.$target.find('.validation-message').addClass('unconfirmed');
 						// mark all fields which got still complains.
 						response['errors'].forEach(error => {
 							if (!error['field'] && error['code'] === 'ScriptAssert') {
@@ -82,13 +85,23 @@ export class CreateEventAction {
 									error['field'] = 'endDate';
 								}
 							}
-							thisObj.$target.find('[name="' + error['field'] + '"]')
+							let $field = thisObj.$target.find('[name="' + error['field'] + '"]')
 								.not('[data-ignore-validation-error-' + error['code'] + ']')
 								.removeClass('validation-ok')
 								.addClass('validation-error');
+							// render a validation message after this field.
+							let $message = thisObj.$target.find('[data-name="' + error['field'] + '"].validation-message');
+							if ($message.length > 0) {
+								$message.removeClass('unconfirmed');
+							} else {
+								$message = jQuery('<span class="validation-message">').hide().attr('data-name', error['field']).insertAfter($field);
+							}
+							$message.text(error['defaultMessage']).slideDown();
 						});
 						// remove all oks from children which belong to invalid parents.
 						thisObj.$target.find('.validation-error .validation-ok').removeClass('validation-ok');
+						// remove all unconfirmed validation-messages.
+						thisObj.$target.find('.validation-message.unconfirmed').slideUp();
 					}
 				} else { // other error case like connection issues.
 					thisObj.errorListener.forEach(listener => { listener.showError('Could not reach server. Will try again...'); });

@@ -97,6 +97,7 @@ export class LocalizableTextWidget {
 			thisObj.languageSelectionChangedListener.forEach(listener => { listener.changed(locale); });
 			// alter the name of the text-field correspondingly.
 			thisObj.$target.children('.text').attr('name', name + '[' + locale + ']');
+			thisObj.$target.children('.validation-message').attr('data-name', name + '[' + locale + ']');
 		});
 		// create an input or textarea
 		if (type === LocalizableFieldType.Input) {
@@ -113,6 +114,8 @@ export class LocalizableTextWidget {
 				// inform all destroy listeners that they can remove links to this widget instance.
 				thisObj.destroyListeners.forEach(listener => { listener.destroyed(thisObj); });
 			});
+		// prepare a span for the propable validation errors.
+		jQuery('<span class="validation-message">').attr('data-name', name + '[' + this.locale() + ']').hide().appendTo(this.$target);
 	}
 
 	public addLanguageSelectionChangedListener(listener: LanguageSelectionChangedListener): void {

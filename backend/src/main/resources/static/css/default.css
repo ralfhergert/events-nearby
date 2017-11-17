@@ -24,3 +24,7 @@ input,textarea,select {
 select.languageSelector {
 	max-width: 80px;
 }
+
+span.validation-message {
+	color: #f04129;
+}
