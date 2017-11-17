@@ -5,6 +5,7 @@ import org.nextup.backend.entity.EventEntity;
 import org.nextup.backend.validation.NoEmptyValues;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import java.net.URL;
 import java.util.Date;
@@ -29,8 +30,10 @@ public class Event {
 	@Valid
 	private Location location;
 	@NotNull
+	@Future
 	private Date startDate;
 	@NotNull
+	@Future
 	private Date endDate;
 
 	public Event() {}
