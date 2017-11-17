@@ -30,7 +30,7 @@ export class LocalizableTextListWidget {
 		let thisObj = this;
 		let widget = new LocalizableTextWidget(this.type, this.name, this.allSelectedLanguages());
 		this.textWidgets.push(widget);
-		this.$list.append(widget.$target);
+		this.$list.append(widget.$target.hide().slideDown());
 		// register a change listener for language changes.
 		widget.addLanguageSelectionChangedListener({
 			changed() {
@@ -110,7 +110,7 @@ export class LocalizableTextWidget {
 		jQuery('<input type="button" value="Remove">')
 			.appendTo(this.$target)
 			.click(function() {
-				thisObj.$target.remove();
+				thisObj.$target.slideUp(function() { this.remove() });
 				// inform all destroy listeners that they can remove links to this widget instance.
 				thisObj.destroyListeners.forEach(listener => { listener.destroyed(thisObj); });
 			});
