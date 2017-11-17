@@ -23,15 +23,15 @@ export class CreateEventAction {
 		$target.find('#submit').click(function() {
 			thisObj.submit();
 		});
-		// register a change listener on the inputs.
-		$target.find('[name]').change(function() {
-			thisObj.submit(true);
-		});
 		this.eventTitleWidget = new LocalizableTextListWidget(jQuery('#event-title'), LocalizableFieldType.Input, 'title');
 		this.eventDescriptionWidget = new LocalizableTextListWidget(jQuery('#event-description'), LocalizableFieldType.Textarea, 'description');
 		this.eventLocationWidget = new LocationWidget(jQuery('#event-location'), 'location');
 		this.startDateWidget = new DateFieldWidget(jQuery('#event-startDate'), DateHelper.createOffsetDate(24 * 3600)); // plus 24h
 		this.endDateWidget = new DateFieldWidget(jQuery('#event-endDate'), DateHelper.createOffsetDate(26 * 3600)); // plus 26h
+		// register a change listener on the form.
+		$target.on('change', '[name]', function() {
+			thisObj.submit(true);
+		});
 		// trigger a first submit to get all validations.
 		this.submit(true);
 	}
