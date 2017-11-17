@@ -15,7 +15,7 @@ import java.util.UUID;
 /**
  * This transfer object transports an event.
  */
-@ScriptAssert(lang = "javascript", script = "_this.startDate.before(_this.endDate)", message="endDate not after startDate")
+@ScriptAssert(lang = "javascript", script = "_this.startDate != null && _this.startDate.before(_this.endDate)", message="endDate not after startDate")
 public class Event {
 
 	private UUID id;
