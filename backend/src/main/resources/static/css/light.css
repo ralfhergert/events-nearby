@@ -1,0 +1,24 @@
+body {
+	background-color: #fcfcfc;
+	color: #424242;
+}
+input,textarea,select {
+	background-color: #fdfdfd;
+	box-shadow: 0 0 5px #e0e0e0;
+}
+input[type="submit"] {
+	background-color: #319531;
+	color: #e0e0e0;
+}
+input[type="submit"]:hover {
+	background-color: #236923;
+	color: #e8e8e8;
+}
+input[type="button"] {
+	background-color: #646464;
+	color: #e0e0e0;
+}
+input[type="button"]:hover {
+	background-color: #525252;
+	color: #e8e8e8;
+}

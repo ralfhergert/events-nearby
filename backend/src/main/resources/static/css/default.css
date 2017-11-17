@@ -6,10 +6,29 @@ select {
 	border: none;
 	border-radius: 0;
 }
+.clear {
+	clear: both;
+	float: none !important;
+}
+body,form {
+	margin: 0;
+}
+* {
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 11pt;
+	line-height: 1.2;
+}
+h1 {
+	font-size: 20pt;
+}
 
 input,textarea,select {
 	border: 1px solid lightgray;
-	border-radius: 3px;
+	border-radius: 5px;
+	margin: 0 3px;
+	padding: 5px;
+}
+select {
 	padding: 3px;
 }
 
@@ -27,4 +46,26 @@ select.languageSelector {
 
 span.validation-message {
 	color: #f04129;
+}
+
+.form-field {
+	margin-bottom: 20px;
+}
+.form-field > * {
+	float: left;
+}
+.form-field > label {
+	min-width: 100px;
+	padding: 6px;
+	text-align: right;
+}
+
+.localizable-text-list {
+	margin-bottom: 3px;
+}
+.localizable-text {
+	margin-bottom: 3px;
+}
+.localizable-text > * {
+	float: left;
 }

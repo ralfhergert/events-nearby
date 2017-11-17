@@ -116,6 +116,7 @@ export class LocalizableTextWidget {
 			});
 		// prepare a span for the propable validation errors.
 		jQuery('<span class="validation-message">').attr('data-name', name + '[' + this.locale() + ']').hide().appendTo(this.$target);
+		jQuery('<div class="clear">').appendTo(this.$target);
 	}
 
 	public addLanguageSelectionChangedListener(listener: LanguageSelectionChangedListener): void {
