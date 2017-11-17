@@ -73,7 +73,6 @@ export class LocalizableTextListWidget {
 		});
 		return selectedLanguages;
 	}
-
 }
 
 /**
