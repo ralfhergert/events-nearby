@@ -3,6 +3,8 @@ import {ErrorListener} from '../view/ErrorListener';
 import {LocalizableTextListWidget} from '../widget/LocalizableTextListWidget';
 import {LocalizableFieldType} from '../widget/LocalizableTextListWidget';
 import {LocationWidget} from '../widget/LocationWidget';
+import {DateFieldWidget} from '../widget/DateFieldWidget';
+import {DateHelper} from '../util/DateHelper';
 
 export class CreateEventAction {
 	private $target: any; // should be a jQuery node.
@@ -11,6 +13,8 @@ export class CreateEventAction {
 	private eventTitleWidget: LocalizableTextListWidget;
 	private eventDescriptionWidget: LocalizableTextListWidget;
 	private eventLocationWidget: LocationWidget;
+	private startDateWidget: DateFieldWidget;
+	private endDateWidget: DateFieldWidget;
 
 	constructor($target: any) {
 		let thisObj = this;
@@ -26,6 +30,9 @@ export class CreateEventAction {
 		this.eventTitleWidget = new LocalizableTextListWidget(jQuery('#event-title'), LocalizableFieldType.Input, 'title');
 		this.eventDescriptionWidget = new LocalizableTextListWidget(jQuery('#event-description'), LocalizableFieldType.Textarea, 'description');
 		this.eventLocationWidget = new LocationWidget(jQuery('#event-location'), 'location');
+		this.startDateWidget = new DateFieldWidget(jQuery('#event-startDate'), DateHelper.createOffsetDate(24 * 3600)); // plus 24h
+		this.endDateWidget = new DateFieldWidget(jQuery('#event-endDate'), DateHelper.createOffsetDate(26 * 3600)); // plus 26h
+		// trigger a first submit to get all validations.
 		this.submit(true);
 	}
 
@@ -39,8 +46,8 @@ export class CreateEventAction {
 		localEvent.description = this.eventDescriptionWidget.getValues();
 		localEvent.image = this.$target.find('input#event-image').val();
 		localEvent.location = this.eventLocationWidget.getValues();
-		localEvent.startDate = this.$target.find('input#event-startDate').val();
-		localEvent.endDate = this.$target.find('input#event-endDate').val();
+		localEvent.startDate = this.startDateWidget.date()
+		localEvent.endDate = this.endDateWidget.date();
 		return localEvent;
 	}
 
