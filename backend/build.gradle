@@ -50,7 +50,8 @@ task concatJavaScript(dependsOn: compileTypeScript) {
 		println 'Concatenating files:'
 		fileTree(dir: "${buildDir}/generated/js").files.each { file ->
 			println file
-			jsFile << file.text << '\n'
+			jsFile.append(file.getText('UTF-8'), 'UTF-8')
+			jsFile << '\n'
 		}
 	}
 }
