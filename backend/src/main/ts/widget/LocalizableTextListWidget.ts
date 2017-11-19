@@ -30,7 +30,7 @@ export class LocalizableTextListWidget {
 		let thisObj = this;
 		let widget = new LocalizableTextWidget(this.type, this.name, this.allSelectedLanguages());
 		this.textWidgets.push(widget);
-		this.$list.append(widget.$target.hide().slideDown());
+		widget.$target.hide().appendTo(this.$list).slideDown();
 		// register a change listener for language changes.
 		widget.addLanguageSelectionChangedListener({
 			changed() {
