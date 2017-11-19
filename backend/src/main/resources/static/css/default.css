@@ -29,7 +29,7 @@ input,textarea,select {
 	padding: 5px;
 }
 select {
-	padding: 3px;
+	height: 2em;
 }
 
 .validation-error {
