@@ -25,7 +25,7 @@ h1 {
 input,textarea,select {
 	border: 1px solid lightgray;
 	border-radius: 5px;
-	margin: 0 3px;
+	margin-right: 3px;
 	padding: 5px;
 }
 select {
@@ -48,15 +48,18 @@ span.validation-message {
 	color: #f04129;
 }
 
-.form-field {
-	margin-bottom: 20px;
+form {
+	margin-left: 120px;
 }
-.form-field > * {
-	float: left;
+.form-header, .form-field, .form-action {
+	padding: 5px;
+	position: relative;
 }
 .form-field > label {
+	left: -120px;
 	min-width: 100px;
 	padding: 6px;
+	position: absolute;
 	text-align: right;
 }
 
@@ -68,4 +71,13 @@ span.validation-message {
 }
 .localizable-text > * {
 	float: left;
+}
+.localizable-text > [name] {
+	width: 300px;
+}
+input[name="startDate"] {
+	display: block;
+}
+.explanation {
+	color: #929292;
 }
