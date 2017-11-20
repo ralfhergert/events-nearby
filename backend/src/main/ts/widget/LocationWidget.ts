@@ -10,6 +10,7 @@ export class LocationWidget {
 		this.name = name;
 		jQuery('<input type="text">')
 			.attr('name', name + '.address')
+			.attr('maxlength', 160)
 			.appendTo($target);
 	}
 
