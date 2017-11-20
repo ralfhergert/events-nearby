@@ -42,6 +42,7 @@ export class LocalizableTextListWidget {
 			destroyed(widget: LocalizableTextWidget) {
 				thisObj.textWidgets.splice(thisObj.textWidgets.indexOf(widget), 1);
 				thisObj.updateSelectableLanguages();
+				thisObj.$target.change();
 			}
 		});
 		thisObj.updateSelectableLanguages();
