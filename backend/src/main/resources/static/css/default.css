@@ -75,6 +75,11 @@ textarea {
 .localizable-text > [name] {
 	width: 417px;
 }
+.localizable-text > textarea[name] {
+	height: 120px;
+	max-width: 417px;
+	min-width: 417px;
+}
 input[name="startDate"] {
 	display: block;
 }
