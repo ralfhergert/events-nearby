@@ -28,7 +28,7 @@ public class EventController {
 	}
 
 	@RequestMapping(path = "api/event", method = RequestMethod.POST)
-	public Event saveEvent(@Valid @RequestBody Event event, @RequestParam(value="validateOnly", required = false, defaultValue = "true") final boolean validationOnly) {
+	public Event saveEvent(@Valid @RequestBody Event event, @RequestParam(value="validateOnly", required = false, defaultValue = "false") final boolean validationOnly) {
 		EventEntity entity = event.getId() != null ? eventRepository.findOne(event.getId()) : null;
 		if (entity == null) {
 			entity = new EventEntity();
