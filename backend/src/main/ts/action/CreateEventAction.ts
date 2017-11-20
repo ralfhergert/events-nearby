@@ -46,7 +46,7 @@ export class CreateEventAction {
 		localEvent.description = this.eventDescriptionWidget.getValues();
 		localEvent.image = this.$target.find('input#event-image').val();
 		localEvent.location = this.eventLocationWidget.getValues();
-		localEvent.startDate = this.startDateWidget.date()
+		localEvent.startDate = this.startDateWidget.date();
 		localEvent.endDate = this.endDateWidget.date();
 		return localEvent;
 	}
