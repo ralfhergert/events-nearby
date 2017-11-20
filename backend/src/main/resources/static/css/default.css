@@ -52,7 +52,7 @@ form {
 	margin-left: 120px;
 }
 .form-header, .form-field, .form-action {
-	padding: 5px;
+	padding: 10px 5px;
 	position: relative;
 }
 .form-field > label {
