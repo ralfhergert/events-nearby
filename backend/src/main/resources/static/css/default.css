@@ -56,11 +56,14 @@ form {
 	position: relative;
 }
 .form-field > label {
-	left: -120px;
+	left: -110px;
+	margin-top: 6px;
 	min-width: 100px;
-	padding: 6px;
 	position: absolute;
 	text-align: right;
+}
+textarea {
+	vertical-align: baseline;
 }
 
 .localizable-text-list {
@@ -69,15 +72,22 @@ form {
 .localizable-text {
 	margin-bottom: 3px;
 }
-.localizable-text > * {
-	float: left;
-}
 .localizable-text > [name] {
-	width: 300px;
+	width: 417px;
 }
 input[name="startDate"] {
 	display: block;
 }
 .explanation {
 	color: #929292;
+	line-height: 1.5;
+}
+[name="location.address"] {
+	width: 500px;
+}
+label[for="event-location"] {
+	margin-top: 28px;
+}
+label[for="event-startDate"] {
+	margin-top: 50px;
 }
