@@ -36,10 +36,10 @@ public class NominatimGeoCoderClient {
 	private URL nominatimUrl;
 	@Value("${geocoder.nominatim.userAgent}")
 	private String nominatimUserAgent;
-	@Value("${geocoder.nominatim.proxy.host}")
+	@Value("${geocoder.nominatim.proxy.host:null}")
 	private String nominatimProxyHost;
-	@Value("${geocoder.nominatim.proxy.port}")
-	private Integer nominatimProxyPort;
+	@Value("${geocoder.nominatim.proxy.port:0}")
+	private int nominatimProxyPort;
 
 	protected HttpClient createClient() {
 		return HttpClientBuilder.create()
@@ -71,7 +71,7 @@ public class NominatimGeoCoderClient {
 	}
 
 	protected <Request extends HttpRequestBase> Request configureProxy(Request request) {
-		if (nominatimProxyHost != null && !nominatimProxyHost.isEmpty() && nominatimProxyPort != null && nominatimProxyPort != 0) {
+		if (nominatimProxyHost != null && !nominatimProxyHost.isEmpty() && nominatimProxyPort != 0) {
 			Log.info("using proxy " + nominatimProxyHost + ":" + nominatimProxyPort);
 			request.setConfig(RequestConfig.custom().setProxy(new HttpHost(nominatimProxyHost, nominatimProxyPort)).build());
 		} else {
