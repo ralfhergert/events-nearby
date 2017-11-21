@@ -13,23 +13,15 @@ public class AddressEntity {
 	@Id
 	@GeneratedValue
 	private long id;
-	private String city;
 	private String country;
 	private String countryCode;
-	private String houseNumber;
-	private String postcode;
 	private String state;
+	private String city;
+	private String postcode;
+	private String street;
+	private String houseNumber;
 	private Double lat;
 	private Double lon;
-
-	public String getCity() {
-		return city;
-	}
-
-	public AddressEntity setCity(String city) {
-		this.city = city;
-		return this;
-	}
 
 	public String getCountry() {
 		return country;
@@ -49,12 +41,21 @@ public class AddressEntity {
 		return this;
 	}
 
-	public String getHouseNumber() {
-		return houseNumber;
+	public String getState() {
+		return state;
 	}
 
-	public AddressEntity setHouseNumber(String houseNumber) {
-		this.houseNumber = houseNumber;
+	public AddressEntity setState(String state) {
+		this.state = state;
+		return this;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public AddressEntity setCity(String city) {
+		this.city = city;
 		return this;
 	}
 
@@ -67,12 +68,21 @@ public class AddressEntity {
 		return this;
 	}
 
-	public String getState() {
-		return state;
+	public String getStreet() {
+		return street;
 	}
 
-	public AddressEntity setState(String state) {
-		this.state = state;
+	public AddressEntity setStreet(String street) {
+		this.street = street;
+		return this;
+	}
+
+	public String getHouseNumber() {
+		return houseNumber;
+	}
+
+	public AddressEntity setHouseNumber(String houseNumber) {
+		this.houseNumber = houseNumber;
 		return this;
 	}
 

@@ -70,12 +70,13 @@ public class AddressController {
 			.setLon(result.getLon());
 		if (result.getAddress() != null) {
 			entity
-				.setCity(result.getAddress().getCity())
 				.setCountry(result.getAddress().getCountry())
 				.setCountryCode(result.getAddress().getCountryCode())
+				.setState(result.getAddress().getState())
+				.setCity(result.getAddress().getCity())
 				.setPostcode(result.getAddress().getPostcode())
-				.setHouseNumber(result.getAddress().getHouseNumber())
-				.setState(result.getAddress().getState());
+				.setStreet(result.getAddress().getRoad())
+				.setHouseNumber(result.getAddress().getHouseNumber());
 		}
 		return entity;
 	}

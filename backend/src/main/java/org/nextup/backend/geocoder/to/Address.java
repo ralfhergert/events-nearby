@@ -7,34 +7,28 @@ import org.nextup.backend.geocoder.entity.AddressEntity;
  */
 public class Address {
 
-	private String city;
 	private String country;
 	private String countryCode;
-	private String houseNumber;
-	private String postcode;
 	private String state;
+	private String city;
+	private String postcode;
+	private String street;
+	private String houseNumber;
 	private Double lat;
 	private Double lon;
 
 	public Address() {}
 
 	public Address(AddressEntity entity) {
-		city = entity.getCity();
 		country = entity.getCountry();
 		countryCode = entity.getCountryCode();
-		houseNumber = entity.getHouseNumber();
-		postcode = entity.getPostcode();
 		state = entity.getState();
+		city = entity.getCity();
+		postcode = entity.getPostcode();
+		street = entity.getStreet();
+		houseNumber = entity.getHouseNumber();
 		lat = entity.getLat();
 		lon = entity.getLon();
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
 	}
 
 	public String getCountry() {
@@ -53,12 +47,20 @@ public class Address {
 		this.countryCode = countryCode;
 	}
 
-	public String getHouseNumber() {
-		return houseNumber;
+	public String getState() {
+		return state;
 	}
 
-	public void setHouseNumber(String houseNumber) {
-		this.houseNumber = houseNumber;
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 	public String getPostcode() {
@@ -69,12 +71,20 @@ public class Address {
 		this.postcode = postcode;
 	}
 
-	public String getState() {
-		return state;
+	public String getStreet() {
+		return street;
 	}
 
-	public void setState(String state) {
-		this.state = state;
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public String getHouseNumber() {
+		return houseNumber;
+	}
+
+	public void setHouseNumber(String houseNumber) {
+		this.houseNumber = houseNumber;
 	}
 
 	public Double getLat() {

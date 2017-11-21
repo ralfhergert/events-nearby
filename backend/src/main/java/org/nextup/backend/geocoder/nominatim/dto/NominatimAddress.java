@@ -8,22 +8,15 @@ import com.google.gson.annotations.SerializedName;
  */
 public class NominatimAddress {
 
-	private String city;
 	private String country;
 	@SerializedName("country_code")
 	private String countryCode;
+	private String state;
+	private String city;
+	private String postcode;
+	private String road;
 	@SerializedName("house_number")
 	private String houseNumber;
-	private String postcode;
-	private String state;
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
 
 	public String getCountry() {
 		return country;
@@ -41,12 +34,20 @@ public class NominatimAddress {
 		this.countryCode = countryCode;
 	}
 
-	public String getHouseNumber() {
-		return houseNumber;
+	public String getState() {
+		return state;
 	}
 
-	public void setHouseNumber(String houseNumber) {
-		this.houseNumber = houseNumber;
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 	public String getPostcode() {
@@ -57,11 +58,19 @@ public class NominatimAddress {
 		this.postcode = postcode;
 	}
 
-	public String getState() {
-		return state;
+	public String getRoad() {
+		return road;
 	}
 
-	public void setState(String state) {
-		this.state = state;
+	public void setRoad(String road) {
+		this.road = road;
+	}
+
+	public String getHouseNumber() {
+		return houseNumber;
+	}
+
+	public void setHouseNumber(String houseNumber) {
+		this.houseNumber = houseNumber;
 	}
 }
