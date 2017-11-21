@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.List;
@@ -48,12 +49,12 @@ public class NominatimGeoCoderClient {
 	}
 
 	protected HttpHost createHost() {
-		return new HttpHost(nominatimUrl.getHost(), nominatimUrl.getPort(), nominatimUrl.getProtocol());
+		return new HttpHost(nominatimUrl.getHost(), nominatimUrl.getPort());
 	}
 
 	public SearchResult resolve(String query) {
 		try {
-			HttpGet request = new HttpGet("search?format=json&limit=1&addressdetails=1&q=" + URLEncoder.encode(query, "UTF-8"));
+			HttpGet request = new HttpGet("/search?format=json&limit=1&addressdetails=1&q=" + URLEncoder.encode(query, "UTF-8"));
 			request.addHeader("Accept", "application/json");
 			configureProxy(request);
 			HttpResponse response = createClient().execute(createHost(), request);
