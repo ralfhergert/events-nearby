@@ -9,14 +9,13 @@ export class DateFieldWidget {
 	constructor($target: any, date = new Date()) {
 		let thisObj = this;
 		this.$target = $target.addClass('dateFieldWidget');
-		jQuery('<span class="explanation">').text('Expected format is yyyy-mm-dd HH:MM').appendTo($target);
 		this.$input = jQuery('<input type="text"/>')
 			.val(date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + ' ' + (date.getHours() < 10 ? '0' : '') + date.getHours() + ':' + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes())
 			.appendTo($target);
 		if ($target.attr('data-name')) {
 			this.$input.attr('name', $target.attr('data-name'));
 		}
-		this.$feedback = jQuery('<span class="feedback">').appendTo($target);
+		this.$feedback = jQuery('<div class="feedback">').appendTo($target);
 		this.$input.change(function() {
 			thisObj.updateFeedback();
 		});
@@ -26,9 +25,13 @@ export class DateFieldWidget {
 	protected updateFeedback(): void {
 		let date = this.date();
 		if (date != null && date.toString() != 'Invalid Date') {
-			this.$feedback.text(date.toLocaleDateString() + ' ' + date.toTimeString());
+			this.$feedback.text(date.toLocaleDateString() + ' ' + date.toTimeString())
+				.removeClass('validation-error')
+				.addClass('validation-ok');
 		} else {
-			this.$feedback.text('Input does not match the required pattern.');
+			this.$feedback.text('Could not parse your date. Expected pattern is: yyyy-mm-dd HH:MM')
+				.removeClass('validation-ok')
+				.addClass('validation-error');
 		}
 	}
 
