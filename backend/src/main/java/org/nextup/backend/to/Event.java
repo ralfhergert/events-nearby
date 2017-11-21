@@ -2,6 +2,7 @@ package org.nextup.backend.to;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.nextup.backend.entity.EventEntity;
+import org.nextup.backend.geocoder.to.Address;
 import org.nextup.backend.validation.NoEmptyValues;
 
 import javax.validation.Valid;
@@ -33,6 +34,7 @@ public class Event {
 	@Future
 	private Date startDate;
 	private String duration;
+	private Address resolvedAddress;
 
 	public Event() {}
 
@@ -44,6 +46,7 @@ public class Event {
 		location = new Location().setAddress(entity.getAddress());
 		startDate = entity.getStartDate();
 		duration = entity.getDuration();
+		resolvedAddress = new Address(entity.getResolvedAddress());
 	}
 
 	public UUID getId() {
@@ -106,6 +109,15 @@ public class Event {
 
 	public Event setDuration(String duration) {
 		this.duration = duration;
+		return this;
+	}
+
+	public Address getResolvedAddress() {
+		return resolvedAddress;
+	}
+
+	public Event setResolvedAddress(Address resolvedAddress) {
+		this.resolvedAddress = resolvedAddress;
 		return this;
 	}
 }

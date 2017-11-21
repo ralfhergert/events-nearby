@@ -1,11 +1,10 @@
 package org.nextup.backend.entity;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.nextup.backend.geocoder.entity.AddressEntity;
 import org.nextup.backend.to.LocalizableString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.net.URL;
 import java.util.Date;
@@ -28,6 +27,8 @@ public class EventEntity { //extends AbstractPersistable<UUID> {
 	@NotNull
 	private Date startDate;
 	private String duration;
+	@OneToOne(cascade = CascadeType.ALL)
+	private AddressEntity resolvedAddress;
 
 	public UUID getId() {
 		return id;
@@ -83,5 +84,13 @@ public class EventEntity { //extends AbstractPersistable<UUID> {
 
 	public void setDuration(String duration) {
 		this.duration = duration;
+	}
+
+	public AddressEntity getResolvedAddress() {
+		return resolvedAddress;
+	}
+
+	public void setResolvedAddress(AddressEntity resolvedAddress) {
+		this.resolvedAddress = resolvedAddress;
 	}
 }
