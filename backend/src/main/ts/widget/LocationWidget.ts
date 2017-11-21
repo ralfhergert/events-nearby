@@ -8,10 +8,13 @@ export class LocationWidget {
 	public constructor($target: any, name: string) {
 		this.$target = $target;
 		this.name = name;
-		jQuery('<input type="text">')
+		let $input = jQuery('<input type="text">')
 			.attr('name', name + '.address')
 			.attr('maxlength', 160)
 			.appendTo($target);
+		if ($target.attr('data-input-id')) {
+			$input.attr('id', $target.attr('data-input-id'));
+		}
 	}
 
 	public getValues(): any {

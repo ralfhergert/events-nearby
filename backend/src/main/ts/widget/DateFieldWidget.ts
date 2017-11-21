@@ -12,6 +12,9 @@ export class DateFieldWidget {
 		this.$input = jQuery('<input type="text"/>')
 			.val(date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + ' ' + (date.getHours() < 10 ? '0' : '') + date.getHours() + ':' + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes())
 			.appendTo($target);
+		if ($target.attr('data-input-id')) {
+			this.$input.attr('id', $target.attr('data-input-id'));
+		}
 		if ($target.attr('data-name')) {
 			this.$input.attr('name', $target.attr('data-name'));
 		}
