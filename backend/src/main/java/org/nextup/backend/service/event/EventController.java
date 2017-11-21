@@ -3,6 +3,7 @@ package org.nextup.backend.service.event;
 import org.nextup.backend.entity.EventEntity;
 import org.nextup.backend.repository.EventRepository;
 import org.nextup.backend.to.Event;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -16,11 +17,8 @@ import java.util.UUID;
 @RestController
 public class EventController {
 
+	@Autowired
 	private EventRepository eventRepository;
-
-	public EventController(EventRepository eventRepository) {
-		this.eventRepository = eventRepository;
-	}
 
 	@RequestMapping(path = "api/event", method = RequestMethod.GET)
 	public Event getEvent(@RequestParam(value="id") UUID id) {
