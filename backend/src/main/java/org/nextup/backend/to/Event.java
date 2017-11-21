@@ -46,7 +46,7 @@ public class Event {
 		location = new Location().setAddress(entity.getAddress());
 		startDate = entity.getStartDate();
 		duration = entity.getDuration();
-		resolvedAddress = new Address(entity.getResolvedAddress());
+		resolvedAddress = entity.getResolvedAddress() != null ? new Address(entity.getResolvedAddress()) : null;
 	}
 
 	public UUID getId() {
