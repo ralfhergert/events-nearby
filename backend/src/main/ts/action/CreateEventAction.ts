@@ -14,7 +14,6 @@ export class CreateEventAction {
 	private eventDescriptionWidget: LocalizableTextListWidget;
 	private eventLocationWidget: LocationWidget;
 	private startDateWidget: DateFieldWidget;
-	private endDateWidget: DateFieldWidget;
 
 	constructor($target: any) {
 		let thisObj = this;
@@ -27,7 +26,6 @@ export class CreateEventAction {
 		this.eventDescriptionWidget = new LocalizableTextListWidget(jQuery('#event-description'), LocalizableFieldType.Textarea, 'description');
 		this.eventLocationWidget = new LocationWidget(jQuery('#event-location'), 'location');
 		this.startDateWidget = new DateFieldWidget(jQuery('#event-startDate'), DateHelper.createOffsetDate(24 * 3600)); // plus 24h
-		this.endDateWidget = new DateFieldWidget(jQuery('#event-endDate'), DateHelper.createOffsetDate(26 * 3600)); // plus 26h
 		// register a change listener on the form.
 		$target.on('change', '[name]', function() {
 			thisObj.submit(true);
@@ -47,7 +45,7 @@ export class CreateEventAction {
 		localEvent.image = this.$target.find('input#event-image').val();
 		localEvent.location = this.eventLocationWidget.getValues();
 		localEvent.startDate = this.startDateWidget.date();
-		localEvent.endDate = this.endDateWidget.date();
+		localEvent.duration = this.$target.find('#event-duration').val();
 		return localEvent;
 	}
 
@@ -80,11 +78,6 @@ export class CreateEventAction {
 						thisObj.$target.find('.validation-message').addClass('unconfirmed');
 						// mark all fields which got still complains.
 						response['errors'].forEach(error => {
-							if (!error['field'] && error['code'] === 'ScriptAssert') {
-								if (error['defaultMessage'] === 'endDate not after startDate') {
-									error['field'] = 'endDate';
-								}
-							}
 							let $field = thisObj.$target.find('[name="' + error['field'] + '"]')
 								.not('[data-ignore-validation-error-' + error['code'] + ']');
 							if ($field.length > 0) {

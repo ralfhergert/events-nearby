@@ -27,8 +27,7 @@ public class EventEntity { //extends AbstractPersistable<UUID> {
 	private String address;
 	@NotNull
 	private Date startDate;
-	@NotNull
-	private Date endDate;
+	private String duration;
 
 	public UUID getId() {
 		return id;
@@ -78,11 +77,11 @@ public class EventEntity { //extends AbstractPersistable<UUID> {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
-		return endDate;
+	public String getDuration() {
+		return duration;
 	}
 
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
+	public void setDuration(String duration) {
+		this.duration = duration;
 	}
 }

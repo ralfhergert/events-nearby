@@ -5,5 +5,5 @@ export class LocalEvent {
 	image: URL;
 	location: Location;
 	startDate: Date;
-	endDate: Date;
+	duration: String;
 }

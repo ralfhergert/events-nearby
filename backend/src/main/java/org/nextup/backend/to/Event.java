@@ -1,7 +1,6 @@
 package org.nextup.backend.to;
 
 import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.validator.constraints.ScriptAssert;
 import org.nextup.backend.entity.EventEntity;
 import org.nextup.backend.validation.NoEmptyValues;
 
@@ -15,7 +14,6 @@ import java.util.UUID;
 /**
  * This transfer object transports an event.
  */
-@ScriptAssert(lang = "javascript", script = "_this.startDate != null && _this.startDate.before(_this.endDate)", message="endDate not after startDate")
 public class Event {
 
 	private UUID id;
@@ -34,9 +32,7 @@ public class Event {
 	@NotNull
 	@Future
 	private Date startDate;
-	@NotNull
-	@Future
-	private Date endDate;
+	private String duration;
 
 	public Event() {}
 
@@ -47,7 +43,7 @@ public class Event {
 		image = entity.getImage();
 		location = new Location().setAddress(entity.getAddress());
 		startDate = entity.getStartDate();
-		endDate = entity.getEndDate();
+		duration = entity.getDuration();
 	}
 
 	public UUID getId() {
@@ -104,12 +100,12 @@ public class Event {
 		return this;
 	}
 
-	public Date getEndDate() {
-		return endDate;
+	public String getDuration() {
+		return duration;
 	}
 
-	public Event setEndDate(Date endDate) {
-		this.endDate = endDate;
+	public Event setDuration(String duration) {
+		this.duration = duration;
 		return this;
 	}
 }

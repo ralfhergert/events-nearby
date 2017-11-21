@@ -36,7 +36,7 @@ public class EventController {
 		entity.setImage(event.getImage());
 		entity.setAddress(event.getLocation() != null ? event.getLocation().getAddress() : null);
 		entity.setStartDate(event.getStartDate());
-		entity.setEndDate(event.getEndDate());
+		entity.setDuration(event.getDuration());
 		return new Event(validationOnly ? entity : eventRepository.save(entity));
 	}
 
