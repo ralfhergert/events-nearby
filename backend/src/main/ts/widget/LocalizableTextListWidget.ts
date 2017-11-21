@@ -28,7 +28,7 @@ export class LocalizableTextListWidget {
 
 	public createFurtherTextWidget(): void {
 		let thisObj = this;
-		let widget = new LocalizableTextWidget(this.type, this.name, this.allSelectedLanguages());
+		let widget = new LocalizableTextWidget(this.type, this.name, this.allSelectedLanguages(), this.textWidgets.length == 0 ? this.$target.attr('data-input-id') : null);
 		this.textWidgets.push(widget);
 		widget.$target.hide().appendTo(this.$list).slideDown();
 		// register a change listener for language changes.
@@ -43,6 +43,11 @@ export class LocalizableTextListWidget {
 				thisObj.textWidgets.splice(thisObj.textWidgets.indexOf(widget), 1);
 				thisObj.updateSelectableLanguages();
 				thisObj.$target.change();
+				// if the widget with the input carrying the id had been destroyed then let the first existing widget set the id.
+				let inputId = thisObj.$target.attr('data-input-id');
+				if (inputId != null && inputId.length > 0 && thisObj.$target.find('#' + inputId).length == 0 && thisObj.textWidgets.length > 0) {
+					thisObj.textWidgets[0].setInputId(inputId);
+				}
 			}
 		});
 		thisObj.updateSelectableLanguages();
@@ -83,10 +88,11 @@ export class LocalizableTextWidget {
 	readonly $target: any; // should be a jQuery node.
 	readonly name: string;
 	readonly languageSelector: LanguageSelectorWidget;
+	readonly $input: any;
 	private languageSelectionChangedListener: Array<LanguageSelectionChangedListener> = [];
 	private destroyListeners: Array<WidgetDestroyedListener<LocalizableTextWidget>> = [];
 
-	constructor(type: LocalizableFieldType, name: string, disabledLanguages: Array<string>) {
+	constructor(type: LocalizableFieldType, name: string, disabledLanguages: Array<string>, inputId: string) {
 		let thisObj = this;
 		this.name = name;
 		this.$target = jQuery('<div class="localizable-text">');
@@ -101,19 +107,20 @@ export class LocalizableTextWidget {
 			thisObj.$target.children('.validation-message').attr('data-name', name + '[' + locale + ']');
 		});
 		// create an input or textarea
-		if (type === LocalizableFieldType.Input) {
-			this.$target.append(jQuery('<input type="text" class="text"/>'));
-		} else {
-			this.$target.append(jQuery('<textarea class="text"/>'));
-		}
-		thisObj.$target.children('.text').attr('name', name + '[' + this.locale() + ']');
+		this.$input = (type === LocalizableFieldType.Input)
+			? jQuery('<input type="text" class="text"/>')
+			: jQuery('<textarea class="text"/>');
+		this.$input.attr('name', name + '[' + this.locale() + ']').appendTo(this.$target);
+		this.setInputId(inputId);
 		// create a delete button.
 		jQuery('<input type="button" value="Remove">')
 			.appendTo(this.$target)
 			.click(function() {
-				thisObj.$target.slideUp(function() { this.remove() });
-				// inform all destroy listeners that they can remove links to this widget instance.
-				thisObj.destroyListeners.forEach(listener => { listener.destroyed(thisObj); });
+				thisObj.$target.slideUp(function() {
+					this.remove();
+					// inform all destroy listeners that they can remove links to this widget instance.
+					thisObj.destroyListeners.forEach(listener => { listener.destroyed(thisObj); });
+				});
 			});
 		// prepare a span for the propable validation errors.
 		jQuery('<span class="validation-message">').attr('data-name', name + '[' + this.locale() + ']').hide().appendTo(this.$target);
@@ -138,6 +145,12 @@ export class LocalizableTextWidget {
 
 	public updateDisabledLanguages(disabledLanguages: Array<string>) {
 		this.languageSelector.updateDisabledLanguages(disabledLanguages);
+	}
+
+	public setInputId(inputId: string) {
+		if (inputId != null && inputId.length > 0) {
+			this.$input.attr('id', inputId);
+		}
 	}
 }
 
