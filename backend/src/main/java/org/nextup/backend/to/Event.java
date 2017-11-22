@@ -1,13 +1,14 @@
 package org.nextup.backend.to;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.nextup.backend.entity.EventEntity;
 import org.nextup.backend.geocoder.to.Address;
 import org.nextup.backend.validation.NoEmptyValues;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.net.URL;
 import java.util.Date;
 import java.util.UUID;
@@ -28,8 +29,9 @@ public class Event {
 	private LocalizableString description;
 	private URL image;
 	@NotNull
-	@Valid
-	private Location location;
+	@NotBlank
+	@Size(max = 160)
+	private String location;
 	@NotNull
 	@Future
 	private Date startDate;
@@ -43,7 +45,7 @@ public class Event {
 		title = entity.getTitle();
 		description = entity.getDescription();
 		image = entity.getImage();
-		location = new Location().setAddress(entity.getAddress());
+		location = entity.getAddress();
 		startDate = entity.getStartDate();
 		duration = entity.getDuration();
 		resolvedAddress = entity.getResolvedAddress() != null ? new Address(entity.getResolvedAddress()) : null;
@@ -85,11 +87,11 @@ public class Event {
 		return this;
 	}
 
-	public Location getLocation() {
+	public String getLocation() {
 		return location;
 	}
 
-	public Event setLocation(Location location) {
+	public Event setLocation(String location) {
 		this.location = location;
 		return this;
 	}

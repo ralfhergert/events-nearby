@@ -12,7 +12,6 @@ export class CreateEventAction {
 	private timeoutHandle: number;
 	private eventTitleWidget: LocalizableTextListWidget;
 	private eventDescriptionWidget: LocalizableTextListWidget;
-	private eventLocationWidget: LocationWidget;
 	private startDateWidget: DateFieldWidget;
 
 	constructor($target: any) {
@@ -24,7 +23,6 @@ export class CreateEventAction {
 		});
 		this.eventTitleWidget = new LocalizableTextListWidget(jQuery('#event-title'), LocalizableFieldType.Input, 'title');
 		this.eventDescriptionWidget = new LocalizableTextListWidget(jQuery('#event-description'), LocalizableFieldType.Textarea, 'description');
-		this.eventLocationWidget = new LocationWidget(jQuery('#event-location'), 'location');
 		this.startDateWidget = new DateFieldWidget(jQuery('#event-startDate'), DateHelper.createOffsetDate(24 * 3600)); // plus 24h
 		// register a change listener on the form.
 		$target.on('change', '[name]', function() {
@@ -43,7 +41,7 @@ export class CreateEventAction {
 		localEvent.title = this.eventTitleWidget.getValues();
 		localEvent.description = this.eventDescriptionWidget.getValues();
 		localEvent.image = this.$target.find('input#event-image').val();
-		localEvent.location = this.eventLocationWidget.getValues();
+		localEvent.location = this.$target.find('#event-location-input').val();
 		localEvent.startDate = this.startDateWidget.date();
 		localEvent.duration = this.$target.find('#event-duration').val();
 		return localEvent;

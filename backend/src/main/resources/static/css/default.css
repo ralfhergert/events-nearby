@@ -88,6 +88,6 @@ textarea {
 	color: #929292;
 	line-height: 1.5;
 }
-[name="location.address"] {
+#event-location-input {
 	width: 500px;
 }
