@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 import java.io.IOException;
-import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.List;
@@ -52,7 +51,7 @@ public class NominatimGeoCoderClient {
 		return new HttpHost(nominatimUrl.getHost(), nominatimUrl.getPort());
 	}
 
-	public SearchResult resolve(String query) {
+	public SearchResult resolve(String query) throws CommunicationException {
 		try {
 			HttpGet request = new HttpGet("/search?format=json&limit=1&addressdetails=1&q=" + URLEncoder.encode(query, "UTF-8"));
 			request.addHeader("Accept", "application/json");
@@ -64,11 +63,11 @@ public class NominatimGeoCoderClient {
 				return list.size() > 0 ? list.get(0) : null;
 			} else {
 				Log.error("Nominatim geo-coding-request got HTTP-" + response.getStatusLine().getStatusCode() + " " + response.getStatusLine().getReasonPhrase() + " " + Streams.readAsString(response.getEntity().getContent()));
+				throw new CommunicationException("GeoCodingRequest to " + nominatimUrl + " got HTTP-" + response.getStatusLine().getStatusCode() + " " + response.getStatusLine().getReasonPhrase());
 			}
 		} catch (IOException e) {
-			Log.error("Could not perform request to nominatim", e);
+			throw new CommunicationException("Could not perform request to " + nominatimUrl, e);
 		}
-		return null;
 	}
 
 	protected <Request extends HttpRequestBase> Request configureProxy(Request request) {

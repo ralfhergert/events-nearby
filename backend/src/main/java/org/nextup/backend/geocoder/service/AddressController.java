@@ -2,10 +2,13 @@ package org.nextup.backend.geocoder.service;
 
 import org.nextup.backend.geocoder.entity.AddressEntity;
 import org.nextup.backend.geocoder.entity.AddressRequestEntity;
+import org.nextup.backend.geocoder.nominatim.CommunicationException;
 import org.nextup.backend.geocoder.nominatim.NominatimGeoCoderClient;
 import org.nextup.backend.geocoder.nominatim.dto.SearchResult;
 import org.nextup.backend.geocoder.repository.AddressRequestRepository;
 import org.nextup.backend.geocoder.to.Address;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +24,8 @@ import java.util.Date;
  */
 @RestController
 public class AddressController {
+
+	private static final Logger Log = LoggerFactory.getLogger(AddressController.class);
 
 	@Value("${addressController.minimumQueryLength}")
 	private int minimumQueryLength;
@@ -53,9 +58,14 @@ public class AddressController {
 		}
 		// if the request is too old, then refresh it.
 		if (new Date().getTime() - cachedRequest.getCreatedDate().getTime() > allowedCachingAgeInSeconds * 1000) {
-			cachedRequest.setAddress(convert(geoCoderClient.resolve(query)));
-			// store the updated request.
-			addressRequestRepository.save(cachedRequest);
+			try {
+				cachedRequest.setAddress(convert(geoCoderClient.resolve(query)));
+				cachedRequest.setCreatedDate(new Date());
+				// store the updated request.
+				addressRequestRepository.save(cachedRequest);
+			} catch (CommunicationException e) {
+				Log.error("request to GeoCoder failed", e);
+			}
 		}
 		// deliver the resolved address.
 		return cachedRequest.getAddress() != null ? new Address(cachedRequest.getAddress()) : null;
