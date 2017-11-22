@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.nextup.backend.entity.EventEntity;
 import org.nextup.backend.geocoder.to.Address;
 import org.nextup.backend.validation.NoEmptyValues;
+import org.nextup.backend.validation.ResolvableAddress;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
@@ -31,6 +32,7 @@ public class Event {
 	@NotNull
 	@NotBlank
 	@Size(max = 160)
+	@ResolvableAddress
 	private String location;
 	@NotNull
 	@Future
