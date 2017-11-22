@@ -48,7 +48,7 @@ public class NominatimGeoCoderClient {
 	}
 
 	protected HttpHost createHost() {
-		return new HttpHost(nominatimUrl.getHost(), nominatimUrl.getPort());
+		return new HttpHost(nominatimUrl.getHost(), nominatimUrl.getPort(), nominatimUrl.getProtocol());
 	}
 
 	public SearchResult resolve(String query) throws CommunicationException {
