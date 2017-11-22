@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -61,8 +62,11 @@ public class AddressController {
 			try {
 				cachedRequest.setAddress(convert(geoCoderClient.resolve(query)));
 				cachedRequest.setCreatedDate(new Date());
-				// store the updated request.
-				addressRequestRepository.save(cachedRequest);
+				try { // try to store the updated request. Due to concurrency it may happen, that another thread
+					addressRequestRepository.save(cachedRequest);
+				} catch (DataIntegrityViolationException e) {
+					Log.warn("could not save updated cached request", e);
+				}
 			} catch (CommunicationException e) {
 				Log.error("request to GeoCoder failed", e);
 			}

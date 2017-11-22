@@ -1,7 +1,5 @@
 package org.nextup.backend.geocoder.entity;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -13,21 +11,18 @@ import java.util.Date;
 public class AddressRequestEntity {
 
 	@Id
-	@GeneratedValue
-	private long id;
+	private String query;
 	@NotNull
 	private Date createdDate = new Date();
-	@NotEmpty
-	private String query;
 	@OneToOne(cascade = CascadeType.ALL)
 	private AddressEntity address;
 
-	public long getId() {
-		return id;
+	public String getQuery() {
+		return query;
 	}
 
-	public AddressRequestEntity setId(long id) {
-		this.id = id;
+	public AddressRequestEntity setQuery(String query) {
+		this.query = query;
 		return this;
 	}
 
@@ -37,15 +32,6 @@ public class AddressRequestEntity {
 
 	public AddressRequestEntity setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
-		return this;
-	}
-
-	public String getQuery() {
-		return query;
-	}
-
-	public AddressRequestEntity setQuery(String query) {
-		this.query = query;
 		return this;
 	}
 
