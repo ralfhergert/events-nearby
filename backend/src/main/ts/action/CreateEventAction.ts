@@ -22,7 +22,11 @@ export class CreateEventAction implements SubmitAction {
 		this.$target = $target;
 		// register a click listener on the submit button.
 		$target.find('#submit').click(function() {
-			thisObj.scheduler.scheduleSubmit();
+			// ignore this click. if a submit request has already been scheduled.
+			if (!jQuery(this).hasClass('waiting')) {
+				jQuery(this).addClass('waiting');
+				thisObj.scheduler.scheduleSubmit();
+			}
 		});
 		this.eventTitleWidget = new LocalizableTextListWidget(jQuery('#event-title'), LocalizableFieldType.Input, 'title');
 		this.eventDescriptionWidget = new LocalizableTextListWidget(jQuery('#event-description'), LocalizableFieldType.Textarea, 'description');
@@ -64,6 +68,10 @@ export class CreateEventAction implements SubmitAction {
 				thisObj.$target.find('[name]').removeClass('validation-error').addClass('validation-ok');
 				thisObj.$target.find('#submit').removeClass('unarmed').addClass('armed');
 				thisObj.$target.find('.validation-message').slideUp();
+				// re-enable the submit button if this was a submit request.
+				if (!validateOnly) {
+					thisObj.$target.find('input[type="submit"]').removeClass('waiting');
+				}
 			},
 			error: function(jqXHR: any, status: string, error: string) {
 				if (jqXHR.status == 400) { // BadRequest due to validation errors.
@@ -96,6 +104,10 @@ export class CreateEventAction implements SubmitAction {
 						thisObj.$target.find('.validation-error .validation-ok').removeClass('validation-ok');
 						// remove all unconfirmed validation-messages.
 						thisObj.$target.find('.validation-message.unconfirmed').slideUp();
+					}
+					// re-enable the submit button if this was a submit request.
+					if (!validateOnly) {
+						thisObj.$target.find('input[type="submit"]').removeClass('waiting');
 					}
 				} else { // other error case like connection issues.
 					thisObj.errorListener.forEach(listener => { listener.showError('Could not reach server. Will try again...'); });

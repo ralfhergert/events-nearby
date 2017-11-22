@@ -6,19 +6,30 @@ input,textarea,select {
 	background-color: #fdfdfd;
 	box-shadow: 0 0 5px #e0e0e0;
 }
+input[type="submit"],
+input[type="button"] {
+	font-weight: bold;
+	padding: 5px 10px;
+	color: #e8e8e8;
+}
+input[type="submit"]:hover,
+input[type="button"]:hover {
+	color: #f0f0f0;
+}
 input[type="submit"] {
 	background-color: #319531;
-	color: #e0e0e0;
+	text-shadow: 0 0 3px #262;
 }
 input[type="submit"]:hover {
-	background-color: #236923;
-	color: #e8e8e8;
+	background-color: #44bb44;
+}
+input[type="submit"].waiting {
+	background-image: url('/css/green.waiting.svg');
 }
 input[type="button"] {
 	background-color: #646464;
-	color: #e0e0e0;
+	text-shadow: 0 0 3px #242424;
 }
 input[type="button"]:hover {
 	background-color: #525252;
-	color: #e8e8e8;
 }
