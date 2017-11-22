@@ -1,5 +1,4 @@
 import {LocalEvent} from '../model/LocalEvent';
-import {LocalEventsListener} from '../controller/UpdateLocalEventsThread';
 import {ErrorListener} from '../view/ErrorListener';
 
 export class SlideDownErrorView implements ErrorListener {

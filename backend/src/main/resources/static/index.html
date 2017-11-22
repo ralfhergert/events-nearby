@@ -33,7 +33,7 @@ jQuery(window).resize(function() {
 	var updateLocalEventsThread = new UpdateLocalEventsThread();
 	updateLocalEventsThread.addLocalEventListener(eventListView);
 	updateLocalEventsThread.addErrorListener(new SlideDownErrorView(jQuery('#updateError')));
-	updateLocalEventsThread.queryLocalEvents();
+	updateLocalEventsThread.request();
 </script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 import {LocalEvent} from '../model/LocalEvent';
-import {LocalEventsListener} from '../controller/UpdateLocalEventsThread';
+import {EntityListener} from '../controller/RequestController';
 
-export class EventListView implements LocalEventsListener {
+export class EventListView implements EntityListener<Array<LocalEvent>> {
 	private $target: any; // should be a jQuery node.
 
 	constructor($target: any) {
@@ -13,7 +13,7 @@ export class EventListView implements LocalEventsListener {
 	 * Events which are no longer in the given list are removed from the view,
 	 * while events which are new are added.
 	 */
-	public updateEvents(events: Array<LocalEvent>) {
+	public updateEntity(events: Array<LocalEvent>) {
 		let existingLocalEventIds: Array<string> = events.map(e => e.id);
 		// remove all events which are no longer in the given list.
 		this.$target.children('.local-event-view').each(function() {
