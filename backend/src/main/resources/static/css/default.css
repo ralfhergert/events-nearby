@@ -91,3 +91,14 @@ textarea {
 #event-location-input {
 	width: 500px;
 }
+#transmission-error {
+	background-image: url('/css/warning.waiting.svg');
+	color: white;
+	font-weight: bold;
+	text-shadow: 0 0 3px #500;
+	box-shadow: 0 0 7px #500 inset;
+}
+#transmission-error .message {
+	display: inline-block;
+	margin: 3px 5px;
+}
