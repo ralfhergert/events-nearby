@@ -5,31 +5,34 @@ import {LocalizableFieldType} from '../widget/LocalizableTextListWidget';
 import {LocationWidget} from '../widget/LocationWidget';
 import {DateFieldWidget} from '../widget/DateFieldWidget';
 import {DateHelper} from '../util/DateHelper';
+import {SubmitScheduler} from './SubmitScheduler';
+import {SubmitAction} from './SubmitAction';
 
-export class CreateEventAction {
+export class CreateEventAction implements SubmitAction {
 	private $target: any; // should be a jQuery node.
 	private errorListener: Array<ErrorListener> = [];
-	private timeoutHandle: number;
+	private scheduler: SubmitScheduler;
 	private eventTitleWidget: LocalizableTextListWidget;
 	private eventDescriptionWidget: LocalizableTextListWidget;
 	private startDateWidget: DateFieldWidget;
 
 	constructor($target: any) {
 		let thisObj = this;
+		this.scheduler = new SubmitScheduler(this);
 		this.$target = $target;
 		// register a click listener on the submit button.
 		$target.find('#submit').click(function() {
-			thisObj.submit();
+			thisObj.scheduler.scheduleSubmit();
 		});
 		this.eventTitleWidget = new LocalizableTextListWidget(jQuery('#event-title'), LocalizableFieldType.Input, 'title');
 		this.eventDescriptionWidget = new LocalizableTextListWidget(jQuery('#event-description'), LocalizableFieldType.Textarea, 'description');
 		this.startDateWidget = new DateFieldWidget(jQuery('#event-startDate'), DateHelper.createOffsetDate(24 * 3600)); // plus 24h
 		// register a change listener on the form.
 		$target.on('change', '[name]', function() {
-			thisObj.submit(true);
+			thisObj.scheduler.scheduleValidation();
 		});
 		// trigger a first submit to get all validations.
-		this.submit(true);
+		this.scheduler.scheduleValidation();
 	}
 
 	public addErrorListener(listener: ErrorListener): void {
@@ -50,7 +53,6 @@ export class CreateEventAction {
 	public submit(validateOnly = false) {
 		let thisObj = this;
 		// clear the current window handle, if there is any.
-		window.clearTimeout(this.timeoutHandle);
 		jQuery.ajax('/api/event' + (validateOnly ? '?validateOnly=true' : ''), {
 			method  : 'POST',
 			data    : JSON.stringify(this.extractFormValues()),
@@ -99,7 +101,11 @@ export class CreateEventAction {
 					thisObj.errorListener.forEach(listener => { listener.showError('Could not reach server. Will try again...'); });
 					thisObj.$target.find('#submit').removeClass('armed').addClass('unarmed');
 					// retry
-					thisObj.timeoutHandle = window.setTimeout(function() { thisObj.submit(validateOnly); }, 10000); // 10s
+					if (validateOnly) {
+						thisObj.scheduler.scheduleValidation(10000);
+					} else {
+						thisObj.scheduler.scheduleSubmit(10000);
+					}
 				}
 			},
 			complete: function() {
