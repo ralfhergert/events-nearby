@@ -18,6 +18,7 @@
 		<div class="explanation">Where is your event? Please give an address.</div>
 		<label for="event-location-input">Location</label>
 		<input type="text" id="event-location-input" name="location" maxlength="160"/>
+		<div id="plain-resolved-address"></div>
 		<div class="clear"></div>
 	</div>
 	<div class="form-field">
@@ -53,8 +54,25 @@
 	</div>
 </form>
 <script type="text/javascript">
+	var transmissionError = new SlideDownErrorView(jQuery('#transmission-error'));
 	var action = new CreateEventAction(jQuery('#create-event-form'));
-	action.addErrorListener(new SlideDownErrorView(jQuery('#transmission-error')))
+	action.addErrorListener(transmissionError);
+	// resolved address views.
+	var addressResolver = new AddressResolver();
+	addressResolver.addErrorListener(transmissionError);
+	addressResolver.addLocalEventListener(new AddressFlatView(jQuery('#plain-resolved-address')));
+	var addressResolverScheduler = new UniversalScheduler(function() {
+		addressResolver.request(jQuery('#event-location-input').val());
+	});
+	// sensors on location-input
+	jQuery('#event-location-input').change(function() {
+		addressResolverScheduler.schedule();
+	}).keypress(function(event) {
+		// ignore any control keys (cursor, tab, pos1, end, enter), but respect backspace and delete
+		if (event.charCode != 0 || event.key === 'Delete' || event.key === 'Backspace') {
+			addressResolverScheduler.schedule(1000); // 1 second
+		}
+	});
 </script>
 </body>
 </html>
