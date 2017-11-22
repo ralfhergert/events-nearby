@@ -29,9 +29,7 @@ export class RequestController<Entity,RequestInfo> {
 			error: function() {
 				// inform all error listener that we currently have errors.
 				thisObj.errorListener.forEach(listener => { listener.showError(thisObj.errorMessage); });
-			},
-			complete: function() {
-				// create a new timeout
+				// schedule a retry
 				thisObj.timeoutHandle = window.setTimeout(function() { thisObj.request(info); }, 30000); // 30s
 			}
 		});
