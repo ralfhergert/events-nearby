@@ -35,6 +35,12 @@ export class CreateEventAction implements SubmitAction {
 		$target.on('change', '[name]', function() {
 			thisObj.scheduler.scheduleValidation();
 		});
+		$target.on('keypress', '[name]', function(event: any) {
+			// ignore any control keys (cursor, tab, pos1, end, enter), but respect backspace and delete
+			if (event.charCode != 0 || event.key === 'Delete' || event.key === 'Backspace') {
+				thisObj.scheduler.scheduleValidation(1000); // 1 second
+			}
+		});
 		// trigger a first submit to get all validations.
 		this.scheduler.scheduleValidation();
 	}
