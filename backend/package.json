@@ -1,6 +1,7 @@
 {
 	"dependencies": {
 		"typescript": "2.6.1",
-		"@types/jquery": "3.2.1"
+		"@types/jquery": "3.2.1",
+		"@types/openlayers": "4.3.11"
 	}
 }

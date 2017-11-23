@@ -24,12 +24,29 @@ html {
 h1 {
 	font-size: 20pt;
 }
+a {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+map {
+	display: block;
+}
+map .ol-attribution ul {
+	font-size: 0.8em;
+}
+map a {
+	color: #7797a3;
+}
 
-input,textarea,select {
+input,textarea,select,map {
 	border: 1px solid lightgray;
 	border-radius: 5px;
 	font-family: inherit;
 	font-size: inherit;
+}
+input,textarea,select {
 	margin-right: 3px;
 	padding: 5px;
 }
@@ -92,6 +109,10 @@ textarea {
 }
 #event-location-input {
 	width: 500px;
+}
+#map-resolved-address {
+	height: 342px;
+	width: 513px;
 }
 #transmission-error {
 	background-image: url('/css/warning.waiting.svg');
