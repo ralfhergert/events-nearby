@@ -41,26 +41,30 @@ public class AddressController {
 
 	@RequestMapping(path = "api/address", method = RequestMethod.GET)
 	public Address resolveAddress(@RequestParam(value="query", required = true) final String query) {
+		if (query == null) {
+			return null;
+		}
+		final String trimmedQuery = query.trim();
 		// skip this request if the given query is too short.
-		if (query == null || query.length() < minimumQueryLength) {
+		if (trimmedQuery.length() < minimumQueryLength) {
 			return null;
 		}
 		// also skip this query if it does not contain at least one white-space.
-		if (!query.contains(" ")) {
+		if (!trimmedQuery.contains(" ")) {
 			return null;
 		}
 		// search the cached requests.
-		AddressRequestEntity cachedRequest = addressRequestRepository.findByQuery(query);
+		AddressRequestEntity cachedRequest = addressRequestRepository.findByQuery(trimmedQuery);
 		// if no request was found or the found request is too old, then use the GeoCoder to resolve it.
 		if (cachedRequest == null) {
 			cachedRequest = new AddressRequestEntity()
-				.setQuery(query)
+				.setQuery(trimmedQuery)
 				.setCreatedDate(new Date(0)); // set a date which is definitively too old.
 		}
 		// if the request is too old, then refresh it.
 		if (new Date().getTime() - cachedRequest.getCreatedDate().getTime() > allowedCachingAgeInSeconds * 1000) {
 			try {
-				cachedRequest.setAddress(convert(geoCoderClient.resolve(query)));
+				cachedRequest.setAddress(convert(geoCoderClient.resolve(trimmedQuery)));
 				cachedRequest.setCreatedDate(new Date());
 				try { // try to store the updated request. Due to concurrency it may happen, that another thread
 					addressRequestRepository.save(cachedRequest);
