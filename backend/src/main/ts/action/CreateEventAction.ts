@@ -7,10 +7,12 @@ import {DateFieldWidget} from '../widget/DateFieldWidget';
 import {DateHelper} from '../util/DateHelper';
 import {SubmitScheduler} from './SubmitScheduler';
 import {SubmitAction} from './SubmitAction';
+import {ValidationDoneListener} from './ValidationDoneListener';
 
 export class CreateEventAction implements SubmitAction {
 	private $target: any; // should be a jQuery node.
 	private errorListener: Array<ErrorListener> = [];
+	private validationDoneListener: Array<ValidationDoneListener> = [];
 	private scheduler: SubmitScheduler;
 	private eventTitleWidget: LocalizableTextListWidget;
 	private eventDescriptionWidget: LocalizableTextListWidget;
@@ -49,6 +51,10 @@ export class CreateEventAction implements SubmitAction {
 		this.errorListener.push(listener);
 	}
 
+	public addValidationDoneListener(listener: ValidationDoneListener): void {
+		this.validationDoneListener.push(listener);
+	}
+
 	private extractFormValues(): LocalEvent {
 		let localEvent = new LocalEvent();
 		localEvent.title = this.eventTitleWidget.getValues();
@@ -74,6 +80,8 @@ export class CreateEventAction implements SubmitAction {
 				thisObj.$target.find('[name]').removeClass('validation-error').addClass('validation-ok');
 				thisObj.$target.find('#submit').removeClass('unarmed').addClass('armed');
 				thisObj.$target.find('.validation-message').slideUp();
+				// inform all validation listeners.
+				thisObj.validationDoneListener.forEach(listener => { listener.validationDone(); });
 				// re-enable the submit button if this was a submit request.
 				if (!validateOnly) {
 					thisObj.$target.find('input[type="submit"]').removeClass('waiting');
@@ -111,6 +119,8 @@ export class CreateEventAction implements SubmitAction {
 						// remove all unconfirmed validation-messages.
 						thisObj.$target.find('.validation-message.unconfirmed').slideUp();
 					}
+					// inform all validation listeners.
+					thisObj.validationDoneListener.forEach(listener => { listener.validationDone(); });
 					// re-enable the submit button if this was a submit request.
 					if (!validateOnly) {
 						thisObj.$target.find('input[type="submit"]').removeClass('waiting');
