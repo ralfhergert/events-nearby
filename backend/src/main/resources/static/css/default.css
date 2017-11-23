@@ -16,7 +16,7 @@ select {
 body,form {
 	margin: 0;
 }
-* {
+html {
 	font-family: 'Ubuntu', sans-serif;
 	font-size: 11pt;
 	line-height: 1.2;
@@ -28,6 +28,8 @@ h1 {
 input,textarea,select {
 	border: 1px solid lightgray;
 	border-radius: 5px;
+	font-family: inherit;
+	font-size: inherit;
 	margin-right: 3px;
 	padding: 5px;
 }
