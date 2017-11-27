@@ -32,6 +32,7 @@ a:hover {
 }
 map {
 	display: block;
+	margin-top: 10px;
 }
 map .ol-attribution ul {
 	font-size: 0.8em;
