@@ -158,3 +158,10 @@ textarea {
 .dateFieldWidget input {
 	border-bottom-left-radius: 0;
 }
+#event-location-input {
+	border-bottom-left-radius: 0;
+}
+#plain-resolved-address {
+	border-bottom-left-radius: 5px;
+	padding-left: 5px;
+}

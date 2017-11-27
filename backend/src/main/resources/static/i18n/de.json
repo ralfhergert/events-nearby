@@ -21,6 +21,8 @@
 	"createEventForm_validation_NotBlank": "darf nicht leer sein",
 	"createEventForm_validation_NoEmptyValues": "darf nicht leer sein",
 	"createEventForm_validation_TooLong": "zu lang",
-	"createEventForm_validation_NoResolvableAddress": "Adresse nicht gefunden",
-	"createEventForm_validation_Future": "muss in der Zukunft liegen"
+	"createEventForm_validation_ResolvableAddress": "Adresse nicht gefunden",
+	"createEventForm_validation_Future": "muss in der Zukunft liegen",
+
+	"addressFlatView_unknownAddress": "Unbekannte Adresse"
 }
