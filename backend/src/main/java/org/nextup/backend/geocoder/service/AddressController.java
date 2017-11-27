@@ -96,6 +96,13 @@ public class AddressController {
 				.setStreet(result.getAddress().getRoad())
 				.setHouseNumber(result.getAddress().getHouseNumber());
 		}
+		if (result.getBoundingBox() != null) {
+			entity
+				.setBoundingMinLon(result.getBoundingBox().getMinLon())
+				.setBoundingMaxLon(result.getBoundingBox().getMaxLon())
+				.setBoundingMinLat(result.getBoundingBox().getMinLat())
+				.setBoundingMaxLat(result.getBoundingBox().getMaxLat());
+		}
 		return entity;
 	}
 }

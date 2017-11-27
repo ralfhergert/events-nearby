@@ -8,4 +8,8 @@ export class Address {
 	houseNumber: string;
 	lat: number;
 	lon: number;
+	boundingMinLon: number;
+	boundingMaxLon: number;
+	boundingMinLat: number;
+	boundingMaxLat: number;
 }

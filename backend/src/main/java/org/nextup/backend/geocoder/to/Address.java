@@ -16,6 +16,10 @@ public class Address {
 	private String houseNumber;
 	private Double lat;
 	private Double lon;
+	private Double boundingMinLon;
+	private Double boundingMaxLon;
+	private Double boundingMinLat;
+	private Double boundingMaxLat;
 
 	public Address() {}
 
@@ -29,6 +33,10 @@ public class Address {
 		houseNumber = entity.getHouseNumber();
 		lat = entity.getLat();
 		lon = entity.getLon();
+		boundingMinLon = entity.getBoundingMinLon();
+		boundingMaxLon = entity.getBoundingMaxLon();
+		boundingMinLat = entity.getBoundingMinLat();
+		boundingMaxLat = entity.getBoundingMaxLat();
 	}
 
 	public String getCountry() {
@@ -101,5 +109,37 @@ public class Address {
 
 	public void setLon(Double lon) {
 		this.lon = lon;
+	}
+
+	public Double getBoundingMinLon() {
+		return boundingMinLon;
+	}
+
+	public void setBoundingMinLon(Double boundingMinLon) {
+		this.boundingMinLon = boundingMinLon;
+	}
+
+	public Double getBoundingMaxLon() {
+		return boundingMaxLon;
+	}
+
+	public void setBoundingMaxLon(Double boundingMaxLon) {
+		this.boundingMaxLon = boundingMaxLon;
+	}
+
+	public Double getBoundingMinLat() {
+		return boundingMinLat;
+	}
+
+	public void setBoundingMinLat(Double boundingMinLat) {
+		this.boundingMinLat = boundingMinLat;
+	}
+
+	public Double getBoundingMaxLat() {
+		return boundingMaxLat;
+	}
+
+	public void setBoundingMaxLat(Double boundingMaxLat) {
+		this.boundingMaxLat = boundingMaxLat;
 	}
 }
