@@ -1,14 +1,17 @@
+import {I18n} from '../i18n/I18n';
 /**
  * This widget allows a user to pick a date and time with respect to the timezone.
  */
 export class DateFieldWidget {
+	readonly i18n: I18n;
 	readonly $target: any; // supposed to be a jQuery node.
 	readonly $input: any;
 	readonly $feedback: any;
 
-	constructor($target: any, date = new Date()) {
+	constructor($target: any, i18n: I18n, date = new Date()) {
 		let thisObj = this;
-		this.$target = $target.addClass('dateFieldWidget');
+		this.i18n = i18n;
+		this.$target = $target.addClass('dateFieldWidget').addClass('input-container');
 		this.$input = jQuery('<input type="text"/>')
 			.val(date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + ' ' + (date.getHours() < 10 ? '0' : '') + date.getHours() + ':' + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes())
 			.appendTo($target);
@@ -18,23 +21,38 @@ export class DateFieldWidget {
 		if ($target.attr('data-name')) {
 			this.$input.attr('name', $target.attr('data-name'));
 		}
+		jQuery('<label class="validation-message">')
+			.attr('for', $target.attr('data-input-id'))
+			.attr('data-name', $target.attr('data-name'))
+			.appendTo($target);
 		this.$feedback = jQuery('<div class="feedback">').appendTo($target);
 		this.$input.change(function() {
 			thisObj.updateFeedback();
+		}).keypress(function(event: any) {
+			// ignore any control keys (cursor, tab, pos1, end, enter), but respect backspace and delete
+			if (event.charCode != 0 || event.key === 'Delete' || event.key === 'Backspace') {
+				window.setTimeout(function() {
+					thisObj.updateFeedback();
+				});
+			}
 		});
 		this.updateFeedback();
 	}
 
 	protected updateFeedback(): void {
 		let date = this.date();
-		if (date != null && date.toString() != 'Invalid Date') {
+		if (date == null || date.toString() == 'Invalid Date') {
+			this.$feedback.text(this.i18n.get('createEventForm_feedback_couldNotParseDate'))
+				.removeClass('validation-ok')
+				.addClass('validation-error');
+		} else if (date.getTime() < new Date().getTime()) {
+			this.$feedback.text(this.i18n.get('createEventForm_validation_Future'))
+				.removeClass('validation-ok')
+				.addClass('validation-error');
+		} else {
 			this.$feedback.text(date.toLocaleDateString() + ' ' + date.toTimeString())
 				.removeClass('validation-error')
 				.addClass('validation-ok');
-		} else {
-			this.$feedback.text('Could not parse your date. Expected pattern is: yyyy-mm-dd HH:MM')
-				.removeClass('validation-ok')
-				.addClass('validation-error');
 		}
 	}
 

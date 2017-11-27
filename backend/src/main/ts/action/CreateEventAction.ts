@@ -35,7 +35,7 @@ export class CreateEventAction implements SubmitAction {
 		});
 		this.eventTitleWidget = new LocalizableTextListWidget(jQuery('#event-title'), LocalizableFieldType.Input, 'title', i18n);
 		this.eventDescriptionWidget = new LocalizableTextListWidget(jQuery('#event-description'), LocalizableFieldType.Textarea, 'description', i18n);
-		this.startDateWidget = new DateFieldWidget(jQuery('#event-startDate'), DateHelper.createOffsetDate(24 * 3600)); // plus 24h
+		this.startDateWidget = new DateFieldWidget(jQuery('#event-startDate'), i18n, DateHelper.createOffsetDate(24 * 3600)); // plus 24h
 		// register a change listener on the form.
 		$target.on('change', '[name]', function() {
 			thisObj.scheduler.scheduleValidation();
@@ -114,7 +114,7 @@ export class CreateEventAction implements SubmitAction {
 								} else {
 									$message = jQuery('<span class="validation-message">').hide().attr('data-name', error['field']).insertAfter($field);
 								}
-								$message.text(error['defaultMessage']).slideDown();
+								$message.text(thisObj.i18n.get('createEventForm_validation_' + error['code'], {}, error['defaultMessage'])).slideDown();
 							}
 						});
 						// remove all oks from children which belong to invalid parents.

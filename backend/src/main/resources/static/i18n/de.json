@@ -13,5 +13,14 @@
 	"createEventForm_image_label": "Bild",
 	"createEventForm_duration_label": "Dauer",
 	"createEventForm_duration_description": "Wie lang wird Ihre Veranstaltung dauern?",
-	"createEventForm_submit_label": "Eintragen"
+	"createEventForm_submit_label": "Eintragen",
+
+	"createEventForm_feedback_couldNotParseDate": "Verstehe Ihre Zeitangabe nicht. Erwartetes Format ist: yyyy-mm-dd HH:MM",
+
+	"createEventForm_validation_NotNull": "bitte angeben",
+	"createEventForm_validation_NotBlank": "darf nicht leer sein",
+	"createEventForm_validation_NoEmptyValues": "darf nicht leer sein",
+	"createEventForm_validation_TooLong": "zu lang",
+	"createEventForm_validation_NoResolvableAddress": "Adresse nicht gefunden",
+	"createEventForm_validation_Future": "muss in der Zukunft liegen"
 }

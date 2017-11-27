@@ -13,5 +13,14 @@
 	"createEventForm_image_label": "Image",
 	"createEventForm_duration_label": "Duration",
 	"createEventForm_duration_description": "How long will your event take place?",
-	"createEventForm_submit_label": "Enlist"
+	"createEventForm_submit_label": "Enlist",
+
+	"createEventForm_feedback_couldNotParseDate": "Could not parse your date. Expected pattern is: yyyy-mm-dd HH:MM",
+
+	"createEventForm_validation_NotNull": "please define",
+	"createEventForm_validation_NotBlank": "should no be empty",
+	"createEventForm_validation_NoEmptyValues": "should not be empty",
+	"createEventForm_validation_TooLong": "too long",
+	"createEventForm_validation_NoResolvableAddress": "address not found",
+	"createEventForm_validation_Future": "must be in future"
 }
