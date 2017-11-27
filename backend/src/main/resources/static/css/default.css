@@ -43,12 +43,16 @@ map a {
 input,textarea,select,map {
 	border: 1px solid lightgray;
 	border-radius: 5px;
+	box-sizing : border-box;
 	font-family: inherit;
 	font-size: inherit;
 }
 input,textarea,select {
 	margin-right: 3px;
 	padding: 5px;
+}
+input,textarea,select:last-child {
+	margin-right: 0;
 }
 select {
 	height: 2em;
@@ -66,7 +70,7 @@ select.languageSelector {
 	max-width: 80px;
 }
 
-span.validation-message {
+.validation-message {
 	color: #f04129;
 }
 
@@ -76,6 +80,7 @@ form {
 .form-header, .form-field, .form-action {
 	padding: 10px 5px;
 	position: relative;
+	width: 600px;
 }
 .form-field > label {
 	display: block;
@@ -93,26 +98,37 @@ textarea {
 	margin-bottom: 3px;
 }
 .localizable-text {
+	display: table;
 	margin-bottom: 3px;
 }
-.localizable-text > [name] {
-	width: 417px;
+.localizable-text > * {
+	display: table-cell;
+	margin-left: 3px;
+	margin-right: 3px;
 }
-.localizable-text > textarea[name] {
+.localizable-text > *:last-child {
+	margin-right: 0;
+}
+.localizable-text > *:first-child {
+	margin-left: 0;
+}
+.localizable-text .input-container {
+	width: 100%;
+}
+.localizable-text [name] {
+	width: 100%;
+	max-width: 100%;
+	min-width: 100%;
+}
+.localizable-text textarea[name] {
 	height: 120px;
-	max-width: 417px;
-	min-width: 417px;
 }
 .explanation {
 	color: #929292;
 	line-height: 1.5;
 }
 #event-location-input {
-	width: 500px;
-}
-#map-resolved-address {
-	height: 342px;
-	width: 513px;
+	width: 100%;
 }
 #transmission-error {
 	background-image: url('/css/warning.waiting.svg');
@@ -124,4 +140,14 @@ textarea {
 #transmission-error .message {
 	display: inline-block;
 	margin: 3px 5px;
+}
+.input-container {
+	position: relative;
+}
+.input-container .validation-message {
+	cursor: text;
+	position: absolute;
+	right: 6px;
+	top: 6px;
+	z-index: 1;
 }

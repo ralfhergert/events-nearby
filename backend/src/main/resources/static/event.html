@@ -19,7 +19,10 @@
 	<div class="form-field">
 		<div class="explanation" data-i18n-text="createEventForm_location_description">Where is your event? Please give an address.</div>
 		<label for="event-location-input" data-i18n-text="createEventForm_location_label">Location</label>
-		<input type="text" id="event-location-input" name="location" maxlength="160"/>
+		<div class="input-container" data-name="location">
+			<input type="text" id="event-location-input" name="location" maxlength="160"/>
+			<label for="event-location-input" class="validation-message" data-name="location"></label>
+		</div>
 		<div id="plain-resolved-address"></div>
 		<map id="map-resolved-address"></map>
 		<div class="clear"></div>
