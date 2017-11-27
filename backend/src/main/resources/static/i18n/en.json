@@ -1,0 +1,28 @@
+{
+	"createEventForm_heading": "Enlist new Event",
+	"createEventForm_location_label": "Location",
+	"createEventForm_location_description": "Where is your event taking place? Please give an address.",
+	"createEventForm_start_label": "Start",
+	"createEventForm_start_description": "When does your event start? Please set date and time.",
+	"createEventForm_title_label": "Title",
+	"createEventForm_title_add_label": "Add title in further language",
+	"createEventForm_title_remove_label": "Remove",
+	"createEventForm_description_label": "Description",
+	"createEventForm_description_add_label": "Add description in further language",
+	"createEventForm_description_remove_label": "Remove",
+	"createEventForm_image_label": "Image",
+	"createEventForm_duration_label": "Duration",
+	"createEventForm_duration_description": "How long will your event take place?",
+	"createEventForm_submit_label": "Enlist",
+
+	"createEventForm_feedback_couldNotParseDate": "Could not parse your date. Expected pattern is: yyyy-mm-dd HH:MM",
+
+	"createEventForm_validation_NotNull": "please define",
+	"createEventForm_validation_NotBlank": "should no be empty",
+	"createEventForm_validation_NoEmptyValues": "should not be empty",
+	"createEventForm_validation_TooLong": "too long",
+	"createEventForm_validation_ResolvableAddress": "address not found",
+	"createEventForm_validation_Future": "must be in future",
+
+	"addressFlatView_unknownAddress": "Unknown address"
+}

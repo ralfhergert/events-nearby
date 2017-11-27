@@ -29,7 +29,6 @@ public class Event {
 	@NoEmptyValues
 	private LocalizableString description;
 	private URL image;
-	@NotNull
 	@NotBlank
 	@Size(max = 160)
 	@ResolvableAddress

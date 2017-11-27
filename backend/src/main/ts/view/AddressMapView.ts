@@ -24,7 +24,7 @@ export class AddressMapView implements EntityListener<Address> {
 			}),
 			view: new ol.View({
 				center: ol.proj.fromLonLat([0, 0]),
-				zoom: 4
+				zoom: 1
 			})
 		});
 		// modify all links Map created to use a blank target.
@@ -38,12 +38,24 @@ export class AddressMapView implements EntityListener<Address> {
 
 	public updateEntity(address: Address) {
 		if (address != null && address.lon != null && address.lat != null) {
-			this.flyTo(address.lon, address.lat);
+			this.flyTo(address.lon, address.lat, 17);
 		}
 	}
 
-	public flyTo(lon: number, lat: number) {
+	public flyTo(lon: number, lat: number, targetZoom: number) {
 		let duration = 2000;
+		let currentPosition = ol.proj.toLonLat(this.map.getView().getCenter());
+		let distance = Math.sqrt(Math.pow(lon - currentPosition[0], 2) + Math.pow(lat - currentPosition[1], 2));
+		if (distance == 0) {
+			return;
+		}
+		let retractZoom = Math.log(180/distance)/Math.log(1.77);
+		if (retractZoom > 18) {
+			retractZoom = 18;
+		}
+		if (retractZoom < 1) {
+			retractZoom = 1;
+		}
 		// animation of the translational change
 		this.map.getView().animate({
 			center: ol.proj.fromLonLat([lon, lat]),
@@ -52,10 +64,10 @@ export class AddressMapView implements EntityListener<Address> {
 		// animation of the zoom.
 		var zoom = this.map.getView().getZoom();
 		this.map.getView().animate({
-			zoom: zoom - 1,
+			zoom: retractZoom,
 			duration: duration / 2
 		}, {
-			zoom: zoom,
+			zoom: targetZoom,
 			duration: duration / 2
 		});
 	}

@@ -1,5 +1,7 @@
 import {LanguageSelectorWidget} from "./LanguageSelectorWidget";
 import {WidgetDestroyedListener} from "../view/WidgetDestroyedListener";
+import {I18n} from '../i18n/I18n';
+import {UniqueId} from '../util/UniqueId';
 /**
  * This widget carries multiple {@link LocalizableTextWidget}.
  */
@@ -9,26 +11,30 @@ export class LocalizableTextListWidget {
 	private name: string;
 	private $list: any;
 	private textWidgets: Array<LocalizableTextWidget> = [];
+	private i18n: I18n;
 
-	constructor($target: any, type: LocalizableFieldType, name: string) {
+	constructor($target: any, type: LocalizableFieldType, name: string, i18n: I18n) {
 		let thisObj = this;
 		this.$target = $target;
 		this.type = type;
 		this.name = name;
+		this.i18n = i18n;
 		this.$list = jQuery('<div class="localizable-text-list">').appendTo($target);
 		// create an add-button
 		jQuery('<input type="button" value="Add">')
+			.attr('data-i18n-value', 'createEventForm_' + name + '_add_label')
 			.appendTo($target)
 			.click(function() {
 				thisObj.createFurtherTextWidget();
 			});
 		// create the very first field.
+		i18n.apply($target);
 		this.createFurtherTextWidget();
 	}
 
 	public createFurtherTextWidget(): void {
 		let thisObj = this;
-		let widget = new LocalizableTextWidget(this.type, this.name, this.allSelectedLanguages(), this.textWidgets.length == 0 ? this.$target.attr('data-input-id') : null);
+		let widget = new LocalizableTextWidget(this.type, this.name, this.allSelectedLanguages(), this.textWidgets.length == 0 ? this.$target.attr('data-input-id') : null, this.i18n);
 		this.textWidgets.push(widget);
 		widget.$target.hide().appendTo(this.$list).slideDown();
 		// register a change listener for language changes.
@@ -92,9 +98,10 @@ export class LocalizableTextWidget {
 	private languageSelectionChangedListener: Array<LanguageSelectionChangedListener> = [];
 	private destroyListeners: Array<WidgetDestroyedListener<LocalizableTextWidget>> = [];
 
-	constructor(type: LocalizableFieldType, name: string, disabledLanguages: Array<string>, inputId: string) {
+	constructor(type: LocalizableFieldType, name: string, disabledLanguages: Array<string>, inputId: string, i18n: I18n) {
 		let thisObj = this;
 		this.name = name;
+		inputId = inputId || String(UniqueId.getNext());
 		this.$target = jQuery('<div class="localizable-text">');
 		// create a language selector
 		this.languageSelector = new LanguageSelectorWidget(disabledLanguages, navigator.language);
@@ -110,10 +117,17 @@ export class LocalizableTextWidget {
 		this.$input = (type === LocalizableFieldType.Input)
 			? jQuery('<input type="text" class="text"/>')
 			: jQuery('<textarea class="text"/>');
-		this.$input.attr('name', name + '[' + this.locale() + ']').appendTo(this.$target);
+		this.$input.attr('name', name + '[' + this.locale() + ']');
+		// create a input container with a prepared validation-message.
+		jQuery('<div class="input-container">')
+			.attr('data-name', name)
+			.append(this.$input)
+			.append(jQuery('<label class="validation-message">').attr('data-name', name + '[' + this.locale() + ']'))
+			.appendTo(this.$target);
 		this.setInputId(inputId);
 		// create a delete button.
 		jQuery('<input type="button" value="Remove">')
+			.attr('data-i18n-value', 'createEventForm_' + name + '_remove_label')
 			.appendTo(this.$target)
 			.click(function() {
 				thisObj.$target.slideUp(function() {
@@ -122,9 +136,7 @@ export class LocalizableTextWidget {
 					thisObj.destroyListeners.forEach(listener => { listener.destroyed(thisObj); });
 				});
 			});
-		// prepare a span for the propable validation errors.
-		jQuery('<span class="validation-message">').attr('data-name', name + '[' + this.locale() + ']').hide().appendTo(this.$target);
-		jQuery('<div class="clear">').appendTo(this.$target);
+		i18n.apply(this.$target);
 	}
 
 	public addLanguageSelectionChangedListener(listener: LanguageSelectionChangedListener): void {
@@ -140,7 +152,7 @@ export class LocalizableTextWidget {
 	}
 
 	public text(): string {
-		return this.$target.children('.text').val();
+		return this.$input.val();
 	}
 
 	public updateDisabledLanguages(disabledLanguages: Array<string>) {
@@ -150,6 +162,7 @@ export class LocalizableTextWidget {
 	public setInputId(inputId: string) {
 		if (inputId != null && inputId.length > 0) {
 			this.$input.attr('id', inputId);
+			this.$target.find('label.validation-message').attr('for', inputId);
 		}
 	}
 }
