@@ -14,51 +14,55 @@
 <div id="transmission-error"></div>
 <form id="create-event-form" onsubmit="return false;">
 	<div class="form-header">
-		<h1>Create new event</h1>
+		<h1 data-i18n-text="createEventForm_heading">Create new event</h1>
 	</div>
 	<div class="form-field">
-		<div class="explanation">Where is your event? Please give an address.</div>
-		<label for="event-location-input">Location</label>
+		<div class="explanation" data-i18n-text="createEventForm_location_description">Where is your event? Please give an address.</div>
+		<label for="event-location-input" data-i18n-text="createEventForm_location_label">Location</label>
 		<input type="text" id="event-location-input" name="location" maxlength="160"/>
 		<div id="plain-resolved-address"></div>
 		<map id="map-resolved-address"></map>
 		<div class="clear"></div>
 	</div>
 	<div class="form-field">
-		<div class="explanation">When does your event start? Please set a date and time.</div>
-		<label for="event-startDate-input">Start</label>
+		<div class="explanation" data-i18n-text="createEventForm_start_description">When does your event start? Please set a date and time.</div>
+		<label for="event-startDate-input" data-i18n-text="createEventForm_start_label">Start</label>
 		<div id="event-startDate" data-input-id="event-startDate-input" data-name="startDate"></div>
 		<div class="clear"></div>
 	</div>
 	<div class="form-field">
-		<label for="event-title-input">Title</label>
+		<label for="event-title-input" data-i18n-text="createEventForm_title_label">Title</label>
 		<div id="event-title" name="title" data-input-id="event-title-input" class="showOnlyValidationErrors" data-ignore-validation-error-NoEmptyValues="true"></div>
 		<div class="clear"></div>
 	</div>
 	<div class="form-field">
-		<label for="event-description-input">Description</label>
+		<label for="event-description-input" data-i18n-text="createEventForm_description_label">Description</label>
 		<div id="event-description" name="description" data-input-id="event-description-input" class="showOnlyValidationErrors" data-ignore-validation-error-NoEmptyValues="true"></div>
 		<div class="clear"></div>
 	</div>
 	<div class="form-field">
-		<label for="event-image">Image</label>
+		<label for="event-image" data-i18n-text="createEventForm_image_label">Image</label>
 		<input id="event-image" name="image" type="text" class="showOnlyValidationErrors"/>
 		<div class="clear"></div>
 	</div>
 	<div class="form-field">
-		<div class="explanation">How long will your event take place?</div>
-		<label for="event-duration">Duration</label>
+		<div class="explanation" data-i18n-text="createEventForm_duration_description">How long will your event take place?</div>
+		<label for="event-duration" data-i18n-text="createEventForm_duration_label">Duration</label>
 		<input id="event-duration" name="duration" type="text" class="showOnlyValidationErrors"/>
 		<div class="clear"></div>
 	</div>
 	<div class="form-action">
-		<input type="submit" id="submit" value="Submit"/>
+		<input type="submit" id="submit" value="Submit" data-i18n-value="createEventForm_submit_label"/>
 		<div class="clear"></div>
 	</div>
 </form>
 <script type="text/javascript">
+	i18n = new I18n();
+	i18n.apply(jQuery('body'));
+</script>
+<script type="text/javascript">
 	var transmissionError = new SlideDownErrorView(jQuery('#transmission-error'));
-	var action = new CreateEventAction(jQuery('#create-event-form'));
+	var action = new CreateEventAction(jQuery('#create-event-form'), i18n);
 	action.addErrorListener(transmissionError);
 	// resolved address views.
 	var addressResolver = new AddressResolver();

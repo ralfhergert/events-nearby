@@ -8,9 +8,11 @@ import {DateHelper} from '../util/DateHelper';
 import {SubmitScheduler} from './SubmitScheduler';
 import {SubmitAction} from './SubmitAction';
 import {ValidationDoneListener} from './ValidationDoneListener';
+import {I18n} from '../i18n/I18n';
 
 export class CreateEventAction implements SubmitAction {
 	private $target: any; // should be a jQuery node.
+	private i18n: I18n;
 	private errorListener: Array<ErrorListener> = [];
 	private validationDoneListener: Array<ValidationDoneListener> = [];
 	private scheduler: SubmitScheduler;
@@ -18,8 +20,9 @@ export class CreateEventAction implements SubmitAction {
 	private eventDescriptionWidget: LocalizableTextListWidget;
 	private startDateWidget: DateFieldWidget;
 
-	constructor($target: any) {
+	constructor($target: any, i18n: I18n) {
 		let thisObj = this;
+		this.i18n = i18n;
 		this.scheduler = new SubmitScheduler(this);
 		this.$target = $target;
 		// register a click listener on the submit button.
@@ -30,8 +33,8 @@ export class CreateEventAction implements SubmitAction {
 				thisObj.scheduler.scheduleSubmit();
 			}
 		});
-		this.eventTitleWidget = new LocalizableTextListWidget(jQuery('#event-title'), LocalizableFieldType.Input, 'title');
-		this.eventDescriptionWidget = new LocalizableTextListWidget(jQuery('#event-description'), LocalizableFieldType.Textarea, 'description');
+		this.eventTitleWidget = new LocalizableTextListWidget(jQuery('#event-title'), LocalizableFieldType.Input, 'title', i18n);
+		this.eventDescriptionWidget = new LocalizableTextListWidget(jQuery('#event-description'), LocalizableFieldType.Textarea, 'description', i18n);
 		this.startDateWidget = new DateFieldWidget(jQuery('#event-startDate'), DateHelper.createOffsetDate(24 * 3600)); // plus 24h
 		// register a change listener on the form.
 		$target.on('change', '[name]', function() {

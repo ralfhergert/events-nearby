@@ -1,0 +1,17 @@
+{
+	"createEventForm_heading": "Neue Veranstaltung eintragen",
+	"createEventForm_location_label": "Ort",
+	"createEventForm_location_description": "Wo findet Ihre Veranstaltung statt? Bitte nennen Sie eine Adresse.",
+	"createEventForm_start_label": "Beginn",
+	"createEventForm_start_description": "Wann beginnt Ihre Veranstaltung? Bitte nennen Sie Datum und Zeit.",
+	"createEventForm_title_label": "Titel",
+	"createEventForm_title_add_label": "Titel in weiterer Sprache hinzufügen",
+	"createEventForm_title_remove_label": "Entfernen",
+	"createEventForm_description_label": "Beschreibung",
+	"createEventForm_description_add_label": "Beschreibung in weiterer Sprache hinzufügen",
+	"createEventForm_description_remove_label": "Entfernen",
+	"createEventForm_image_label": "Bild",
+	"createEventForm_duration_label": "Dauer",
+	"createEventForm_duration_description": "Wie lang wird Ihre Veranstaltung dauern?",
+	"createEventForm_submit_label": "Eintragen"
+}
