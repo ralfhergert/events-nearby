@@ -1,6 +1,5 @@
 package org.nextup.backend.filter;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -18,9 +17,13 @@ public class NoContentFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
 		filterChain.doFilter(httpServletRequest, httpServletResponse);
+		// only transform HTTP-200 responses into HTTP-204 if there is no content.
+		if (httpServletResponse.getStatus() != HttpServletResponse.SC_OK) {
+			return;
+		}
 		if (httpServletResponse.getContentType() == null ||
 			httpServletResponse.getContentType().isEmpty()) {
-			httpServletResponse.setStatus(HttpStatus.NO_CONTENT.value());
+			httpServletResponse.setStatus(HttpServletResponse.SC_NO_CONTENT);
 		}
 	}
 }
