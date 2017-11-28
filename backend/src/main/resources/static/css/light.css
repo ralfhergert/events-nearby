@@ -36,3 +36,6 @@ input[type="button"]:hover {
 .dateFieldWidget .feedback.validation-error {
 	color: #f04129;
 }
+.imageUploadWidget .image-preview {
+	background-color: #aad3df;
+}

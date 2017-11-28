@@ -1,4 +1,5 @@
 import {I18n} from '../i18n/I18n';
+import {UniqueId} from "../util/UniqueId";
 
 export class ImageUploadWidget {
 	readonly i18n: I18n;
@@ -9,19 +10,26 @@ export class ImageUploadWidget {
 
 	constructor($target: any, i18n: I18n) {
 		let thisObj = this;
-		this.$target = $target.addClass('imageUploadWidget');
 		this.i18n = i18n;
+		this.$target = $target.addClass('imageUploadWidget');
+		let inputId = $target.attr('data-input-id');
+		if (!inputId) { // in order to work properly the input needs to have an id.
+			inputId = UniqueId.getNext();
+		}
 		this.$input = jQuery('<input type="file" class="showOnlyValidationErrors" accept="image/*"/>')
-			.attr('id', $target.attr('data-input-id'))
+			.attr('id', inputId)
 			.attr('name', $target.attr('data-input-name'))
 			.appendTo($target);
-		this.$view = jQuery('<div class="image-preview">').appendTo($target);
+		this.$view = jQuery('<label class="image-preview">')
+			.attr('for', inputId)
+			.appendTo($target);
 
 		this.$input.change(function() {
 			thisObj.uploadFiles(thisObj.$input.get(0).files);
 		});
 
 		if (ImageUploadWidget.isDragAndDropSupported()) {
+			this.$view.append(jQuery('<span class="text">').text(this.i18n.get('createEventForm_image_instruction')));
 			$target.on('drag dragstart dragend dragover dragenter dragleave drop', function(e) {
 				e.preventDefault();
 				e.stopPropagation();
@@ -35,6 +43,8 @@ export class ImageUploadWidget {
 			.on('drop', function(e) {
 				thisObj.uploadFiles(e.originalEvent.dataTransfer.files);
 			});
+		} else {
+			this.$view.append(jQuery('<span class="text">').text(this.i18n.get('createEventForm_image_instruction_onlyClick')));
 		}
 	}
 

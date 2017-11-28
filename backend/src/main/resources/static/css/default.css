@@ -166,9 +166,25 @@ textarea {
 	border-bottom-left-radius: 5px;
 	padding: 3px 5px;
 }
+.imageUploadWidget input[type="file"] {
+	display: none;
+}
 .imageUploadWidget .image-preview {
+	border: 1px solid lightgray;
+	border-radius: 5px;
+	box-sizing: border-box;
+	display: block;
+	min-height: 100px;
 	width: 100%;
+}
+.imageUploadWidget .image-preview .text {
+	margin: 30px 120px;
+	display: inline-block;
+	text-align: center;
 }
 .imageUploadWidget .image-preview.loaded {
 	height: 345px;
+}
+.imageUploadWidget .image-preview.loaded .text {
+	display: none;
 }

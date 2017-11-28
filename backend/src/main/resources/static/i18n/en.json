@@ -12,6 +12,8 @@
 	"createEventForm_description_remove_label": "Remove",
 	"createEventForm_image_label": "Image",
 	"createEventForm_image_description": "Use an image to catch the eye and draw attention.",
+	"createEventForm_image_instruction": "To add an image click or drag and drop an image here.",
+	"createEventForm_image_instruction_onlyClick": "To add an image click here.",
 	"createEventForm_duration_label": "Duration",
 	"createEventForm_duration_description": "How long will your event take place?",
 	"createEventForm_submit_label": "Enlist",

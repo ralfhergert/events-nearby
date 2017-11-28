@@ -12,6 +12,8 @@
 	"createEventForm_description_remove_label": "Entfernen",
 	"createEventForm_image_label": "Bild",
 	"createEventForm_image_description": "Ein Bild fängt den Blick und erregt Aufmerksamkeit.",
+	"createEventForm_image_instruction": "Um ein Bild hinzuzufügen hier klicken oder per Drag and Drop ein Bild hier hinziehen.",
+	"createEventForm_image_instruction_onlyClick": "Um ein Bild hinzuzufügen hier klicken.",
 	"createEventForm_duration_label": "Dauer",
 	"createEventForm_duration_description": "Wie lang wird Ihre Veranstaltung dauern?",
 	"createEventForm_submit_label": "Eintragen",
