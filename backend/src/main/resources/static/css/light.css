@@ -39,3 +39,7 @@ input[type="button"]:hover {
 .imageUploadWidget .image-preview {
 	background-color: #aad3df;
 }
+.imageUploadWidget .image-preview .text {
+	color: #f2efe9;
+	text-shadow: 0 0 1em #345561;
+}
