@@ -3,6 +3,7 @@ package org.nextup.backend.event.service;
 import org.nextup.backend.event.entity.EventEntity;
 import org.nextup.backend.event.repository.EventRepository;
 import org.nextup.backend.event.to.Event;
+import org.nextup.backend.geocoder.service.AddressController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +20,9 @@ public class EventController {
 
 	@Autowired
 	private EventRepository eventRepository;
+
+	@Autowired
+	private AddressController addressController;
 
 	@RequestMapping(path = "api/event", method = RequestMethod.GET)
 	public Event getEvent(@RequestParam(value="id") UUID id) {
@@ -37,6 +41,7 @@ public class EventController {
 		entity.setAddress(event.getLocation());
 		entity.setStartDate(event.getStartDate());
 		entity.setDuration(event.getDuration());
+		entity.setResolvedAddress(addressController.resolveAddressEntity(event.getLocation()));
 		return new Event(validationOnly ? entity : eventRepository.save(entity));
 	}
 

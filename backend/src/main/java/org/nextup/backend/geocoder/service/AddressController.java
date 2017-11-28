@@ -41,6 +41,11 @@ public class AddressController {
 
 	@RequestMapping(path = "api/address", method = RequestMethod.GET)
 	public Address resolveAddress(@RequestParam(value="query", required = true) final String query) {
+		final AddressEntity entity = resolveAddressEntity(query);
+		return entity != null ? new Address(entity) : null;
+	}
+
+	public AddressEntity resolveAddressEntity(final String query) {
 		if (query == null) {
 			return null;
 		}
@@ -76,7 +81,7 @@ public class AddressController {
 			}
 		}
 		// deliver the resolved address.
-		return cachedRequest.getAddress() != null ? new Address(cachedRequest.getAddress()) : null;
+		return cachedRequest.getAddress();
 	}
 
 	protected AddressEntity convert(SearchResult result) {
