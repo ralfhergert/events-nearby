@@ -1,5 +1,7 @@
 package org.nextup.backend.geocoder.nominatim.dto;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * This DTO resembles a search result from nominatim.
  * See <a href="https://wiki.openstreetmap.org/wiki/Nominatim">Nominatim Wiki</a>
@@ -7,6 +9,7 @@ package org.nextup.backend.geocoder.nominatim.dto;
 public class SearchResult {
 
 	private NominatimAddress address;
+	@SerializedName("boundingbox")
 	private BoundingBox boundingBox;
 	private double lat;
 	private double lon;

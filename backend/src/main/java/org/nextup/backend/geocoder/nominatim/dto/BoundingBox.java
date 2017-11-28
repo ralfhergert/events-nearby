@@ -9,18 +9,18 @@ import java.util.ArrayList;
 public class BoundingBox extends ArrayList<Double> {
 
 	public Double getMinLat() {
-		return size() > 1 ? get(0) : null;
+		return size() > 0 ? get(0) : null;
 	}
 
 	public Double getMaxLat() {
-		return size() > 2 ? get(1) : null;
+		return size() > 1 ? get(1) : null;
 	}
 
 	public Double getMinLon() {
-		return size() > 3 ? get(2) : null;
+		return size() > 2 ? get(2) : null;
 	}
 
 	public Double getMaxLon() {
-		return size() > 4 ? get(3) : null;
+		return size() > 3 ? get(3) : null;
 	}
 }
