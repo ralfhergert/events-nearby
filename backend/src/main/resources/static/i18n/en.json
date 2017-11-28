@@ -24,5 +24,7 @@
 	"createEventForm_validation_ResolvableAddress": "address not found",
 	"createEventForm_validation_Future": "must be in future",
 
-	"addressFlatView_unknownAddress": "Unknown address"
+	"addressFlatView_unknownAddress": "Unknown address",
+
+	"general_connectionProblem": "Could not connect to server. Waiting for connection..."
 }

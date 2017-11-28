@@ -68,7 +68,7 @@
 	var action = new CreateEventAction(jQuery('#create-event-form'), i18n);
 	action.addErrorListener(transmissionError);
 	// resolved address views.
-	var addressResolver = new AddressResolver();
+	var addressResolver = new AddressResolver(i18n);
 	addressResolver.addErrorListener(transmissionError);
 	addressResolver.addLocalEventListener(new AddressFlatView(jQuery('#plain-resolved-address'), i18n));
 	addressResolver.addLocalEventListener(new AddressMapView(jQuery('#map-resolved-address')));

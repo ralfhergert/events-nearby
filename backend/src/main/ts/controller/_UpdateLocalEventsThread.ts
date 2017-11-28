@@ -1,9 +1,10 @@
 import {LocalEvent} from '../model/LocalEvent';
 import {RequestController} from './RequestController';
+import {I18n} from '../i18n/I18n';
 
 export class UpdateLocalEventsThread extends RequestController<Array<LocalEvent>,any> {
 
-	constructor() {
-		super('/api/events', 'Could not update events from server. Waiting for the server to be reachable...');
+	constructor(i18n: I18n) {
+		super('/api/events', i18n);
 	}
 }

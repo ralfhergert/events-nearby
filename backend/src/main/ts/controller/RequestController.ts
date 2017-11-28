@@ -1,4 +1,5 @@
-import {ErrorListener} from "../view/ErrorListener";
+import {ErrorListener} from '../view/ErrorListener';
+import {I18n} from '../i18n/I18n';
 
 /**
  * This is the super class of all request controllers
@@ -8,11 +9,13 @@ export class RequestController<Entity,RequestInfo> {
 	protected errorListener: Array<ErrorListener> = [];
 	private timeoutHandle: number;
 	readonly urlPath: string;
-	readonly errorMessage: string;
+	readonly i18n: I18n;
+	readonly errorMessageKey: string;
 
-	constructor(urlPath: string, errorMessage = 'Connection issue. Waiting for server to be reachable...') {
+	constructor(urlPath: string, i18n: I18n, errorMessage = 'general_connectionProblem') {
 		this.urlPath = urlPath;
-		this.errorMessage = errorMessage;
+		this.i18n = i18n;
+		this.errorMessageKey = errorMessage;
 	}
 
 	public request(info: RequestInfo): void {
@@ -28,7 +31,7 @@ export class RequestController<Entity,RequestInfo> {
 			},
 			error: function() {
 				// inform all error listener that we currently have errors.
-				thisObj.errorListener.forEach(listener => { listener.showError(thisObj.errorMessage); });
+				thisObj.errorListener.forEach(listener => { listener.showError(thisObj.i18n.get(thisObj.errorMessageKey)); });
 				// schedule a retry
 				thisObj.timeoutHandle = window.setTimeout(function() { thisObj.request(info); }, 30000); // 30s
 			}

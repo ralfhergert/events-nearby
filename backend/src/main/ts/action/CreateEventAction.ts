@@ -129,7 +129,7 @@ export class CreateEventAction implements SubmitAction {
 						thisObj.$target.find('input[type="submit"]').removeClass('waiting');
 					}
 				} else { // other error case like connection issues.
-					thisObj.errorListener.forEach(listener => { listener.showError('Could not reach server. Will try again...'); });
+					thisObj.errorListener.forEach(listener => { listener.showError(thisObj.i18n.get('general_connectionProblem')); });
 					thisObj.$target.find('#submit').removeClass('armed').addClass('unarmed');
 					// retry
 					if (validateOnly) {
