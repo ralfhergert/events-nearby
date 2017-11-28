@@ -46,7 +46,7 @@ export class AddressMapView implements EntityListener<Address> {
 		let duration = 2000;
 		let currentPosition = ol.proj.toLonLat(this.map.getView().getCenter());
 		let distance = Math.sqrt(Math.pow(lon - currentPosition[0], 2) + Math.pow(lat - currentPosition[1], 2));
-		if (distance == 0) {
+		if (distance < 0.0001) { // ~11m
 			return;
 		}
 		let retractZoom = Math.log(180/distance)/Math.log(1.77);
