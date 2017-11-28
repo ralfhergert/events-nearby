@@ -11,6 +11,7 @@
 	"createEventForm_description_add_label": "Add description in further language",
 	"createEventForm_description_remove_label": "Remove",
 	"createEventForm_image_label": "Image",
+	"createEventForm_image_description": "Use an image to catch the eye and draw attention.",
 	"createEventForm_duration_label": "Duration",
 	"createEventForm_duration_description": "How long will your event take place?",
 	"createEventForm_submit_label": "Enlist",

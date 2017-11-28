@@ -166,3 +166,9 @@ textarea {
 	border-bottom-left-radius: 5px;
 	padding: 3px 5px;
 }
+.imageUploadWidget .image-preview {
+	width: 100%;
+}
+.imageUploadWidget .image-preview.loaded {
+	height: 345px;
+}

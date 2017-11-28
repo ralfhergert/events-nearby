@@ -9,6 +9,7 @@ import {SubmitScheduler} from './SubmitScheduler';
 import {SubmitAction} from './SubmitAction';
 import {ValidationDoneListener} from './ValidationDoneListener';
 import {I18n} from '../i18n/I18n';
+import {ImageUploadWidget} from '../widget/ImageUploadWidget';
 
 export class CreateEventAction implements SubmitAction {
 	private $target: any; // should be a jQuery node.
@@ -19,6 +20,7 @@ export class CreateEventAction implements SubmitAction {
 	private eventTitleWidget: LocalizableTextListWidget;
 	private eventDescriptionWidget: LocalizableTextListWidget;
 	private startDateWidget: DateFieldWidget;
+	private imageUploadWidget: ImageUploadWidget;
 
 	constructor($target: any, i18n: I18n) {
 		let thisObj = this;
@@ -36,6 +38,7 @@ export class CreateEventAction implements SubmitAction {
 		this.eventTitleWidget = new LocalizableTextListWidget(jQuery('#event-title'), LocalizableFieldType.Input, 'title', i18n);
 		this.eventDescriptionWidget = new LocalizableTextListWidget(jQuery('#event-description'), LocalizableFieldType.Textarea, 'description', i18n);
 		this.startDateWidget = new DateFieldWidget(jQuery('#event-startDate'), i18n, DateHelper.createOffsetDate(24 * 3600)); // plus 24h
+		this.imageUploadWidget = new ImageUploadWidget(jQuery('#event-image-container'), i18n);
 		// register a change listener on the form.
 		$target.on('change', '[name]', function() {
 			thisObj.scheduler.scheduleValidation();
