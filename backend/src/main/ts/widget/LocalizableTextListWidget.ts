@@ -115,8 +115,8 @@ export class LocalizableTextWidget {
 		});
 		// create an input or textarea
 		this.$input = (type === LocalizableFieldType.Input)
-			? jQuery('<input type="text" class="text"/>')
-			: jQuery('<textarea class="text"/>');
+			? jQuery('<input type="text" class="text">')
+			: jQuery('<textarea class="text">');
 		this.$input.attr('name', name + '[' + this.locale() + ']');
 		// create a input container with a prepared validation-message.
 		jQuery('<div class="input-container">')
