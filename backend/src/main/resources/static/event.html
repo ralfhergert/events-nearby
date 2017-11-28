@@ -74,8 +74,13 @@
 	addressResolver.addLocalEventListener(new AddressMapView(jQuery('#map-resolved-address')));
 	// hook into to the action and try to resolve the address whenever a validation had been done.
 	action.addValidationDoneListener({
+		lastLocation: null,
 		validationDone: function() {
-			addressResolver.request(jQuery('#event-location-input').val());
+			var location = jQuery('#event-location-input').val();
+			if (this.lastLocation !== location) {
+				this.lastLocation = location;
+				addressResolver.request(location);
+			}
 		}
 	});
 </script>
