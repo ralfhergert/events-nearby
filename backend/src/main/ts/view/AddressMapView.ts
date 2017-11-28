@@ -23,7 +23,7 @@ export class AddressMapView implements EntityListener<Address> {
 				})
 			}),
 			view: new ol.View({
-				center: ol.proj.fromLonLat([0, 0]),
+				center: ol.proj.fromLonLat([26, 25]),
 				zoom: 1
 			})
 		});
