@@ -50,26 +50,31 @@ export class AddressMapView implements EntityListener<Address> {
 		if (distance < 0.0001) { // ~11m
 			return;
 		}
-		let retractZoom = Math.log(180/distance)/Math.log(1.77);
-		if (retractZoom > 18) {
-			retractZoom = 18;
+		let travelZoom = Math.log(180/distance)/Math.log(1.77);
+		if (travelZoom > targetZoom) {
+			travelZoom = targetZoom;
 		}
-		if (retractZoom < 1) {
-			retractZoom = 1;
+		if (travelZoom < 1) {
+			travelZoom = 1;
 		}
 		// animation of the translational change
 		this.map.getView().animate({
 			center: ol.proj.fromLonLat([lon, lat]),
-			duration: duration
+			duration: duration,
+			easing: ol.easing.inAndOut
 		});
 		// animation of the zoom.
-		var zoom = this.map.getView().getZoom();
+		let zoom = this.map.getView().getZoom();
+		let retractZoom = (zoom < travelZoom) ? (zoom - 0.1) : travelZoom;
+		if (retractZoom > targetZoom) {
+			retractZoom = targetZoom - 1;
+		}
 		this.map.getView().animate({
 			zoom: retractZoom,
-			duration: duration / 2
+			duration: duration * 0.5
 		}, {
 			zoom: targetZoom,
-			duration: duration / 2
+			duration: duration * 0.5
 		});
 	}
 }
