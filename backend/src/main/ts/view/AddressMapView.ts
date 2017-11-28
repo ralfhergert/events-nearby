@@ -25,7 +25,8 @@ export class AddressMapView implements EntityListener<Address> {
 			view: new ol.View({
 				center: ol.proj.fromLonLat([26, 25]),
 				zoom: 1
-			})
+			}),
+			loadTilesWhileAnimating: true
 		});
 		// modify all links Map created to use a blank target.
 		this.map.once('postrender', function() {
