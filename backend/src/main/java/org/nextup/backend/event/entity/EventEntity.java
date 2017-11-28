@@ -1,8 +1,8 @@
-package org.nextup.backend.entity;
+package org.nextup.backend.event.entity;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.nextup.backend.geocoder.entity.AddressEntity;
-import org.nextup.backend.to.LocalizableString;
+import org.nextup.backend.event.to.LocalizableString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

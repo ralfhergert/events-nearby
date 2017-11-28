@@ -1,8 +1,8 @@
-package org.nextup.backend.service.event;
+package org.nextup.backend.event.service;
 
-import org.nextup.backend.entity.EventEntity;
-import org.nextup.backend.repository.EventRepository;
-import org.nextup.backend.to.Event;
+import org.nextup.backend.event.entity.EventEntity;
+import org.nextup.backend.event.repository.EventRepository;
+import org.nextup.backend.event.to.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

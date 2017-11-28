@@ -1,8 +1,8 @@
-package org.nextup.backend.to;
+package org.nextup.backend.event.to;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.nextup.backend.entity.EventEntity;
+import org.nextup.backend.event.entity.EventEntity;
 import org.nextup.backend.geocoder.to.Address;
 import org.nextup.backend.validation.NoEmptyValues;
 import org.nextup.backend.validation.ResolvableAddress;

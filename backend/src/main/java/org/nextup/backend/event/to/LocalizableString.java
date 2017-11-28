@@ -1,4 +1,4 @@
-package org.nextup.backend.to;
+package org.nextup.backend.event.to;
 
 import java.util.HashMap;
 
