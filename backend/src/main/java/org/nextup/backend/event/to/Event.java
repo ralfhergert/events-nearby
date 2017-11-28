@@ -10,7 +10,6 @@ import org.nextup.backend.validation.ResolvableAddress;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.net.URL;
 import java.util.Date;
 import java.util.UUID;
 
@@ -28,7 +27,7 @@ public class Event {
 	@NotEmpty
 	@NoEmptyValues
 	private LocalizableString description;
-	private URL image;
+	private UUID imageId;
 	@NotBlank
 	@Size(max = 160)
 	@ResolvableAddress
@@ -45,7 +44,7 @@ public class Event {
 		id = entity.getId();
 		title = entity.getTitle();
 		description = entity.getDescription();
-		image = entity.getImage();
+		imageId = entity.getImageId();
 		location = entity.getAddress();
 		startDate = entity.getStartDate();
 		duration = entity.getDuration();
@@ -79,12 +78,12 @@ public class Event {
 		return this;
 	}
 
-	public URL getImage() {
-		return image;
+	public UUID getImageId() {
+		return imageId;
 	}
 
-	public Event setImage(URL image) {
-		this.image = image;
+	public Event setImageId(UUID imageId) {
+		this.imageId = imageId;
 		return this;
 	}
 

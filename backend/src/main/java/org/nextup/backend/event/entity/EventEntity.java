@@ -6,7 +6,6 @@ import org.nextup.backend.event.to.LocalizableString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.net.URL;
 import java.util.Date;
 import java.util.UUID;
 
@@ -22,7 +21,7 @@ public class EventEntity { //extends AbstractPersistable<UUID> {
 	@NotEmpty
 	private LocalizableString title;
 	private LocalizableString description;
-	private URL image;
+	private UUID imageId;
 	private String address;
 	@NotNull
 	private Date startDate;
@@ -54,12 +53,12 @@ public class EventEntity { //extends AbstractPersistable<UUID> {
 		this.description = description;
 	}
 
-	public URL getImage() {
-		return image;
+	public UUID getImageId() {
+		return imageId;
 	}
 
-	public void setImage(URL image) {
-		this.image = image;
+	public void setImageId(UUID imageId) {
+		this.imageId = imageId;
 	}
 
 	public String getAddress() {

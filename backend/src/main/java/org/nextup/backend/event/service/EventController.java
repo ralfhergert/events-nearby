@@ -37,7 +37,7 @@ public class EventController {
 		}
 		entity.setTitle(event.getTitle());
 		entity.setDescription(event.getDescription());
-		entity.setImage(event.getImage());
+		entity.setImageId(event.getImageId());
 		entity.setAddress(event.getLocation());
 		entity.setStartDate(event.getStartDate());
 		entity.setDuration(event.getDuration());

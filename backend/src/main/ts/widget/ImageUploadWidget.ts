@@ -6,7 +6,7 @@ export class ImageUploadWidget {
 	readonly $target: any;
 	readonly $input: any;
 	readonly $view: any;
-	private imageId: string;
+	private _imageId: string;
 
 	constructor($target: any, i18n: I18n) {
 		let thisObj = this;
@@ -61,7 +61,7 @@ export class ImageUploadWidget {
 			data: fileList[0],
 			processData: false,
 			success: function(data) {
-				thisObj.imageId = data;
+				thisObj._imageId = data;
 				// update the background image.
 				thisObj.$view.css({'background': 'url("/api/image/' + data + '") no-repeat center/contain'});
 				// show with an animation if not yet visible.
@@ -78,5 +78,10 @@ export class ImageUploadWidget {
 	public static isDragAndDropSupported(): boolean {
 		var div = document.createElement('div');
 		return (('draggable' in div) || ('ondragstart' in div && 'ondrop' in div)) && 'FormData' in window && 'FileReader' in window;
+	}
+
+
+	get imageId(): string {
+		return this._imageId;
 	}
 }
