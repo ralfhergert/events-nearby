@@ -8,7 +8,6 @@ input,textarea,select {
 }
 input[type="submit"],
 input[type="button"] {
-	font-weight: bold;
 	padding: 5px 10px;
 	color: #e8e8e8;
 }
