@@ -1,17 +1,15 @@
 <!doctype html>
 <html>
 <head>
-<meta charset="utf-8"/>
-<script type="text/javascript" src="lib/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="js/localEvents.js"></script>
-<style type="text/css">
-body { margin: 0; }
-#eventListContainer { background-color: red;}
-.layout-c4 #eventListContainer { width: 300px; min-height: 100px;}
-</style>
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" href="/css/default.css"/>
+	<link rel="stylesheet" href="/css/light.css"/>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,700&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext"/>
+	<script type="text/javascript" src="lib/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="js/localEvents.js"></script>
 </head>
 <body>
-<div id="updateError"></div>
+<div id="transmission-error"></div>
 <div id="eventListContainer">
 <div id="eventList">
 </div>
@@ -36,7 +34,7 @@ jQuery(window).resize(function() {
 	var eventListView = new EventListView(jQuery('#eventList'));
 	var updateLocalEventsThread = new UpdateLocalEventsThread(i18n);
 	updateLocalEventsThread.addLocalEventListener(eventListView);
-	updateLocalEventsThread.addErrorListener(new SlideDownErrorView(jQuery('#updateError')));
+	updateLocalEventsThread.addErrorListener(new SlideDownErrorView(jQuery('#transmission-error')));
 	updateLocalEventsThread.request();
 </script>
 </body>
