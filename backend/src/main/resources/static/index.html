@@ -36,6 +36,15 @@ jQuery(window).resize(function() {
 	updateLocalEventsThread.addLocalEventListener(eventListView);
 	updateLocalEventsThread.addErrorListener(new SlideDownErrorView(jQuery('#transmission-error')));
 	updateLocalEventsThread.request();
+	// register a universal schedule for constant updates.
+	var scheduler = new UniversalScheduler(function() {
+		updateLocalEventsThread.request();
+	});
+	updateLocalEventsThread.addLocalEventListener({
+		updateEntity: function() {
+			scheduler.schedule(30000); // 30s
+		}
+	});
 </script>
 </body>
 </html>
