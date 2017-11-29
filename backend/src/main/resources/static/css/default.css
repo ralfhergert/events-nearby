@@ -188,3 +188,11 @@ textarea {
 .imageUploadWidget .image-preview.loaded .text {
 	display: none;
 }
+.local-event-view {
+	box-sizing: border-box; /* that height applies to the outer measurement */
+	height: 100px;
+	min-height: 100px;
+	overflow: hidden;
+	width: 100%;
+	position: relative;
+}

@@ -42,3 +42,70 @@ input[type="button"]:hover {
 	color: #f2efe9;
 	text-shadow: 0 0 1em #345561;
 }
+.local-event-view {
+	background-color: lightgray;
+	box-shadow: 0 0 20px inset rgba(0,0,0,0.3);
+	padding: 0.7em;
+}
+.local-event-view {
+	color:  #fcfcfc;
+}
+.local-event-view > * {
+	text-shadow: 0 0 7px rgba(0,0,0,0.5);
+}
+.local-event-view .title {
+	font-size: 16pt;
+	font-weight: bold;
+	line-height: 1;
+}
+.local-event-view .title,
+.local-event-view .description {
+	display: block;
+	margin-left: 65px;
+}
+.local-event-view div.startDate {
+	background-color: #fcfcfc;
+	border-radius: 5px;
+	box-shadow: 0 0 5px rgba(0,0,0,0.3);
+	text-shadow: none;
+	height: 50px;
+	width: 50px;
+	position: absolute;
+	overflow: hidden;
+}
+.local-event-view div.startDate .day {
+	font-size: 20pt;
+	color: #424242;
+	display: block;
+	width: 100%;
+	text-align: center;
+}
+.local-event-view div.startDate .monthAndYear {
+	font-size: 13px;
+	background-color: #2f9ab2;
+	display: block;
+	width: 100%;
+	text-align: center;
+	padding: 1px 0;
+	position: absolute;
+	bottom: 0;
+}
+.local-event-view div.startTime {
+	background-color: rgba(252,252,252,0.1);
+	border-radius: 5px;
+	box-shadow: 0 0 5px rgba(0,0,0,0.3);
+	text-shadow: none;
+	height: 20px;
+	width: 50px;
+	position: absolute;
+	overflow: hidden;
+	top: 70px;
+}
+.local-event-view div.startTime .time {
+	color: #424242;
+	display: block;
+	width: 100%;
+	text-align: center;
+	overflow: hidden;
+	font-size: 15px;
+}

@@ -29,8 +29,14 @@ export class EventListView implements EntityListener<Array<LocalEvent>> {
 			if ($node.length > 0) { // event does exist.
 				$previousNode = $node;
 			} else { // event does not exist - render it
+				let startDate = new Date(event.startDate);
 				$previousNode = jQuery('<div class="local-event-view">')
 					.attr('data-local-event-id', event.id)
+					.append(jQuery('<div class="startDate">')
+						.append(jQuery('<span class="day">').text(startDate.getDate()))
+						.append(jQuery('<span class="monthAndYear">').text((startDate.getMonth() + 1) + '.' + startDate.getFullYear())))
+					.append(jQuery('<div class="startTime">')
+						.append(jQuery('<span class="time">').text((startDate.getHours() < 10 ? '0' : '') + startDate.getHours() + ':' + (startDate.getMinutes() < 10 ? '0' : '') + startDate.getMinutes())))
 					.append(jQuery('<span class="title">').text(event.title['de']))
 					.append(jQuery('<span class="description">').text(event.description['de']))
 					.slideDown()

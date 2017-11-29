@@ -67,7 +67,7 @@ export class CreateEventAction implements SubmitAction {
 		localEvent.description = this.eventDescriptionWidget.getValues();
 		localEvent.imageId = this.imageUploadWidget.imageId;
 		localEvent.location = this.$target.find('#event-location-input').val();
-		localEvent.startDate = this.startDateWidget.date();
+		localEvent.startDate = this.startDateWidget.date().getTime();
 		localEvent.duration = this.$target.find('#event-duration').val();
 		return localEvent;
 	}

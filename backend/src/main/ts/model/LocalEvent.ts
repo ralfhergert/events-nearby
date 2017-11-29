@@ -4,6 +4,6 @@ export class LocalEvent {
 	description: any; // use Map<string,string> after switching to ES6;
 	imageId: string;
 	location: Location;
-	startDate: Date;
+	startDate: number;
 	duration: String;
 }
