@@ -196,3 +196,16 @@ textarea {
 	width: 100%;
 	position: relative;
 }
+.addEvent {
+	height: 40px;
+	width: 40px;
+	background-color: red;
+	position: fixed;
+	bottom: 10px;
+	margin: auto;
+	left: calc(50% - 20px);
+	border-radius: 20px;
+}
+.addEvent:hover {
+	background-color: #ff5050;
+}
