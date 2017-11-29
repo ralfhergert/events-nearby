@@ -44,7 +44,7 @@ input[type="button"]:hover {
 }
 .local-event-view {
 	background-color: lightgray;
-	box-shadow: 0 0 15px rgba(0,0,0,0.7) inset;
+	box-shadow: 0 0 15px rgba(0,0,0,0.7) inset, 100px 0 100px -50px rgba(0,0,0,0.5) inset, -200px 0 200px -100px rgba(0,0,0,0.5) inset;
 	padding: 0.7em;
 }
 .local-event-view {
