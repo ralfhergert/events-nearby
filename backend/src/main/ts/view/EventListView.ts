@@ -41,6 +41,9 @@ export class EventListView implements EntityListener<Array<LocalEvent>> {
 					.append(jQuery('<span class="description">').text(event.description['de']))
 					.slideDown()
 					.insertAfter($previousNode);
+				if (event.imageId) {
+					$previousNode.css({'background': 'url("/api/image/' + event.imageId + '") no-repeat center/cover'})
+				}
 			}
 		}
 		// finally remove the previously inserted marker.
