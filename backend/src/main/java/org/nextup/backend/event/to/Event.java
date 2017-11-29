@@ -11,6 +11,7 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -22,11 +23,11 @@ public class Event {
 	@NotNull
 	@NotEmpty
 	@NoEmptyValues
-	private LocalizableString title;
+	private Map<String,String> title;
 	@NotNull
 	@NotEmpty
 	@NoEmptyValues
-	private LocalizableString description;
+	private Map<String,String> description;
 	private UUID imageId;
 	@NotBlank
 	@Size(max = 160)
@@ -60,7 +61,7 @@ public class Event {
 		return this;
 	}
 
-	public LocalizableString getTitle() {
+	public Map<String,String> getTitle() {
 		return title;
 	}
 
@@ -69,7 +70,7 @@ public class Event {
 		return this;
 	}
 
-	public LocalizableString getDescription() {
+	public Map<String,String> getDescription() {
 		return description;
 	}
 

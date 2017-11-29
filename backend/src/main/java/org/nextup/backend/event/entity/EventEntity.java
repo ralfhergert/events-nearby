@@ -7,6 +7,7 @@ import org.nextup.backend.event.to.LocalizableString;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -19,8 +20,15 @@ public class EventEntity { //extends AbstractPersistable<UUID> {
 	@GeneratedValue
 	private UUID id;
 	@NotEmpty
-	private LocalizableString title;
-	private LocalizableString description;
+	@ElementCollection
+	@MapKeyColumn(name = "language", length = 2)
+	@Column(name="content", length = 120)
+	private Map<String,String> title;
+	@NotEmpty
+	@ElementCollection
+	@MapKeyColumn(name = "language", length = 2)
+	@Column(name="content", columnDefinition = "text")
+	private Map<String,String> description;
 	private UUID imageId;
 	private String address;
 	@NotNull
@@ -37,19 +45,19 @@ public class EventEntity { //extends AbstractPersistable<UUID> {
 		this.id = id;
 	}
 
-	public LocalizableString getTitle() {
+	public Map<String,String> getTitle() {
 		return title;
 	}
 
-	public void setTitle(LocalizableString title) {
+	public void setTitle(Map<String,String> title) {
 		this.title = title;
 	}
 
-	public LocalizableString getDescription() {
+	public Map<String,String> getDescription() {
 		return description;
 	}
 
-	public void setDescription(LocalizableString description) {
+	public void setDescription(Map<String,String> description) {
 		this.description = description;
 	}
 
