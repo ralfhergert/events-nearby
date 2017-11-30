@@ -9,8 +9,9 @@ export class I18n {
 		});
 	};
 	private attributeNameText = 'data-i18n-text';
-	private attributeNamePlaceholder = 'data-i18n-placeholder';
 	private attributeNameValue = 'data-i18n-value';
+	private attributeNamePlaceholder = 'data-i18n-placeholder';
+	private attributeNameTitle = 'data-i18n-title';
 	private wording = {};
 
 	/**
@@ -81,13 +82,17 @@ export class I18n {
 			let i18nKey = jQuery(this).attr(thisObj.attributeNameText) as string;
 			jQuery(this).text(thisObj.get(i18nKey));
 		});
+		jQuery(targetSelector).find('[' + this.attributeNameValue + ']').each(function() {
+			let i18nKey = jQuery(this).attr(thisObj.attributeNameValue) as string;
+			jQuery(this).val(thisObj.get(i18nKey));
+		});
 		jQuery(targetSelector).find('[' + this.attributeNamePlaceholder + ']').each(function() {
 			let i18nKey = jQuery(this).attr(thisObj.attributeNamePlaceholder) as string;
 			jQuery(this).attr('placeholder', thisObj.get(i18nKey));
 		});
-		jQuery(targetSelector).find('[' + this.attributeNameValue + ']').each(function() {
-			let i18nKey = jQuery(this).attr(thisObj.attributeNameValue) as string;
-			jQuery(this).val(thisObj.get(i18nKey));
+		jQuery(targetSelector).find('[' + this.attributeNameTitle + ']').each(function() {
+			let i18nKey = jQuery(this).attr(thisObj.attributeNameTitle) as string;
+			jQuery(this).attr('title', thisObj.get(i18nKey));
 		});
 	}
 }
