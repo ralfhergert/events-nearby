@@ -6,6 +6,7 @@ export class ImageUploadWidget {
 	readonly $target: any;
 	readonly $input: any;
 	readonly $view: any;
+	readonly $delete: any;
 	private _imageId: string;
 
 	constructor($target: any, i18n: I18n) {
@@ -19,6 +20,13 @@ export class ImageUploadWidget {
 		this.$input = jQuery('<input type="file" class="showOnlyValidationErrors" accept="image/*"/>')
 			.attr('id', inputId)
 			.attr('name', $target.attr('data-input-name'))
+			.appendTo($target);
+		this.$delete = jQuery('<div class="image-delete clickable">')
+			.append(jQuery('<span>').text(i18n.get('imageUploadWidget_delete')))
+			.click(function() {
+				thisObj.deleteFile(thisObj._imageId);
+			})
+			.hide()
 			.appendTo($target);
 		this.$view = jQuery('<label class="image-preview">')
 			.attr('for', inputId)
@@ -75,6 +83,8 @@ export class ImageUploadWidget {
 				if (!thisObj.$view.hasClass('loaded')) {
 					thisObj.$view.hide().addClass('loaded').slideDown();
 				}
+				// show the delete-button
+				thisObj.$delete.slideDown();
 			},
 			complete: function() {
 				thisObj.$target.removeClass('is-uploading');
@@ -93,10 +103,12 @@ export class ImageUploadWidget {
 			success: function() {
 				if (thisObj._imageId == id) { // if this was the current image then get back to the original state.
 					thisObj._imageId = null;
-					// update the background image.
-					thisObj.$view.css({'background-image': 'none'});
+					// reset the styling with the background image.
+					thisObj.$view.attr('style', null);
 					// show with an animation if not yet visible.
-					thisObj.$view.removeClass('loaded');
+					thisObj.$view.slideUp(function() { thisObj.$view.removeClass('loaded').show(); });
+					// hide the delete-button
+					thisObj.$delete.slideUp();
 				}
 			}
 		});

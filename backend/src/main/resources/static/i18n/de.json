@@ -29,5 +29,7 @@
 
 	"addressFlatView_unknownAddress": "Unbekannte Adresse",
 
+	"imageUploadWidget_delete": "Entfernen",
+
 	"general_connectionProblem": "Verbindung zum Server ist gescheitert. Warte auf Verbindung..."
 }

@@ -13,6 +13,9 @@ select {
 .block {
 	display: block;
 }
+.clickable {
+	cursor: default;
+}
 body,form {
 	margin: 0;
 }
@@ -187,6 +190,16 @@ textarea {
 }
 .imageUploadWidget .image-preview.loaded .text {
 	display: none;
+}
+.imageUploadWidget .image-delete {
+	position: absolute;
+	right: 0;
+	top: 0;
+	background-color: #f04129;
+	color: white;
+	padding: 1px 3px;
+	border-bottom-left-radius: 5px;
+	border-top-right-radius: 5px;
 }
 .local-event-view {
 	box-sizing: border-box; /* that height applies to the outer measurement */
