@@ -22,7 +22,7 @@ export class ImageUploadWidget {
 			.attr('name', $target.attr('data-input-name'))
 			.appendTo($target);
 		this.$delete = jQuery('<div class="image-delete clickable">')
-			.append(jQuery('<span>').text(i18n.get('imageUploadWidget_delete')))
+			.append(jQuery('<span data-i18n-text="imageUploadWidget_delete">'))
 			.click(function() {
 				thisObj.deleteFile(thisObj._imageId);
 			})
@@ -37,7 +37,7 @@ export class ImageUploadWidget {
 		});
 
 		if (ImageUploadWidget.isDragAndDropSupported()) {
-			this.$view.append(jQuery('<span class="text">').text(this.i18n.get('createEventForm_image_instruction')));
+			this.$view.append(jQuery('<span class="text" data-i18n-text="createEventForm_image_instruction">'));
 			$target.on('drag dragstart dragend dragover dragenter dragleave drop', function(e) {
 				e.preventDefault();
 				e.stopPropagation();
@@ -52,8 +52,10 @@ export class ImageUploadWidget {
 				thisObj.uploadFiles(e.originalEvent.dataTransfer.files);
 			});
 		} else {
-			this.$view.append(jQuery('<span class="text">').text(this.i18n.get('createEventForm_image_instruction_onlyClick')));
+			this.$view.append(jQuery('<span class="text" data-i18n-text="createEventForm_image_instruction_onlyClick">'));
 		}
+
+		i18n.apply($target);
 	}
 
 	private uploadFiles(fileList: FileList): void {
