@@ -204,7 +204,8 @@ textarea {
 	bottom: 10px;
 	left: calc(50% - 20px);
 	border-radius: 20px;
-	transition: width 0.5s, height 0.5s, border-radius 0.5s, left 0.5s, bottom 0.5s;
+	transition: width 0.2s, height 0.2s, border-radius 0.2s, left 0.2s, bottom 0.2s;
+	box-shadow: 0 0 5px rgba(0,0,0,0.4);
 }
 .addEvent:hover {
 	height: 46px;
