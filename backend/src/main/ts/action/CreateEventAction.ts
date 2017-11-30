@@ -63,6 +63,7 @@ export class CreateEventAction implements SubmitAction {
 
 	private extractFormValues(): LocalEvent {
 		let localEvent = new LocalEvent();
+		localEvent.id = this.$target.find('#event-id').val();
 		localEvent.title = this.eventTitleWidget.getValues();
 		localEvent.description = this.eventDescriptionWidget.getValues();
 		localEvent.imageId = this.imageUploadWidget.imageId;
@@ -80,8 +81,9 @@ export class CreateEventAction implements SubmitAction {
 			data    : JSON.stringify(this.extractFormValues()),
 			contentType: 'application/json',
 			dataType: 'json',
-			success : function() {
+			success : function(data: LocalEvent) {
 				thisObj.errorListener.forEach(listener => { listener.resumeToNormal(); });
+				thisObj.$target.find('#event-id').val(data.id);
 				// all ok - remove validation messages
 				thisObj.$target.find('[name]').removeClass('validation-error').addClass('validation-ok');
 				thisObj.$target.find('#submit').removeClass('unarmed').addClass('armed');
