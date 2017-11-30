@@ -52,8 +52,11 @@ export class ImageUploadWidget {
 		if (fileList == null || fileList.length == 0) {
 			return;
 		}
-		let thisObj = this;
+		if (this.$target.hasClass('is-uploading')) {
+			return;
+		}
 		this.$target.addClass('is-uploading');
+		let thisObj = this;
 		jQuery.ajax({
 			url: '/api/image',
 			method: 'POST',
@@ -61,6 +64,10 @@ export class ImageUploadWidget {
 			data: fileList[0],
 			processData: false,
 			success: function(data) {
+				// if there was another image uploaded before, then delete the older image.
+				if (thisObj._imageId != null && thisObj._imageId != data) {
+					thisObj.deleteFile(thisObj._imageId);
+				}
 				thisObj._imageId = data;
 				// update the background image.
 				thisObj.$view.css({'background': 'url("/api/image/' + data + '") no-repeat center/contain'});
@@ -75,11 +82,30 @@ export class ImageUploadWidget {
 		});
 	}
 
+	private deleteFile(id: string): void {
+		if (id == null || id.length == 0) {
+			return;
+		}
+		let thisObj = this;
+		jQuery.ajax({
+			url: '/api/image/' + id,
+			method: 'DELETE',
+			success: function() {
+				if (thisObj._imageId == id) { // if this was the current image then get back to the original state.
+					thisObj._imageId = null;
+					// update the background image.
+					thisObj.$view.css({'background-image': 'none'});
+					// show with an animation if not yet visible.
+					thisObj.$view.removeClass('loaded');
+				}
+			}
+		});
+	}
+
 	public static isDragAndDropSupported(): boolean {
 		var div = document.createElement('div');
 		return (('draggable' in div) || ('ondragstart' in div && 'ondrop' in div)) && 'FormData' in window && 'FileReader' in window;
 	}
-
 
 	get imageId(): string {
 		return this._imageId;
