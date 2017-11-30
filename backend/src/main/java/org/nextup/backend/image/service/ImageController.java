@@ -34,6 +34,10 @@ public class ImageController {
 
 	@RequestMapping(path = "api/image/{id}", method = RequestMethod.DELETE)
 	public void deleteImage(@NotNull @PathVariable("id") UUID id) {
-		imageRepository.delete(id);
+		ImageEntity entity = imageRepository.findOne(id);
+		if (entity != null) {
+			// TODO check ownership
+			imageRepository.delete(entity);
+		}
 	}
 }
