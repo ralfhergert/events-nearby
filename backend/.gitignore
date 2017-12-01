@@ -5,3 +5,6 @@ out
 *.ipr
 *.iml
 *.iws
+application.properties
+application.yml
+create.sql
