@@ -63,11 +63,11 @@ select {
 }
 
 .validation-error {
-	border-left: 4px solid #f04129;
+	border-left: 4px solid #f04129 !important;
 }
 
 .validation-ok {
-	border-left: 4px solid #60ee5f;
+	border-left: 4px solid #60ee5f !important;
 }
 
 select.languageSelector {

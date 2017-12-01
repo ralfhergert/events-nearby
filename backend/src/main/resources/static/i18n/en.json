@@ -31,5 +31,9 @@
 
 	"imageUploadWidget_delete": "Remove",
 
+	"header_userLocationInput_label_title": "Location",
+	"header_userLocationHint_hint_text": "Set a location to search for event nearby.",
+	"header_useBrowserLocation_link_text": "Retrieve my location from my browser",
+
 	"general_connectionProblem": "Could not connect to server. Waiting for connection..."
 }

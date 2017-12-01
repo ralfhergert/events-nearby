@@ -31,5 +31,9 @@
 
 	"imageUploadWidget_delete": "Entfernen",
 
+	"header_userLocationInput_label_title": "Standort",
+	"header_userLocationHint_hint_text": "Gib einen Standort an, um nach Veranstaltungen in der Nähe zu suchen.",
+	"header_useBrowserLocation_link_text": "Meinen Standort von meinem Browser abfragen",
+
 	"general_connectionProblem": "Verbindung zum Server ist gescheitert. Warte auf Verbindung..."
 }

@@ -10,6 +10,15 @@
 </head>
 <body>
 <div id="transmission-error"></div>
+<div id="header">
+	<label for="user-location-input" data-i18n-title="header_userLocationInput_label_title"></label>
+	<input type="text" id="user-location-input" name="location" maxlength="160"/>
+</div>
+<label id="user-location-hint" for="user-location-input">
+	<span class="arrow"></span>
+	<span class="hint" data-i18n-text="header_userLocationHint_hint_text"></span>
+	<a class="useBrowserLocation" data-i18n-text="header_useBrowserLocation_link_text"></a>
+</label>
 <div id="eventListContainer">
 <div id="eventList">
 </div>
@@ -40,11 +49,18 @@ jQuery(window).resize(function() {
 	updateLocalEventsThread.request();
 	// register a universal schedule for constant updates.
 	var scheduler = new UniversalScheduler(function() {
-		updateLocalEventsThread.request();
+		updateLocalEventsThread.request(userLocationWidget.getGPSLocation());
 	});
 	updateLocalEventsThread.addLocalEventListener({
 		updateEntity: function() {
 			scheduler.schedule(30000); // 30s
+		}
+	});
+	// user location
+	var userLocationWidget = new UserLocationWidget(jQuery('#user-location-input'), i18n);
+	userLocationWidget.addGPSLocationListener({
+		updateEntity: function(gpsLocation) {
+			scheduler.schedule();
 		}
 	});
 </script>
