@@ -63,6 +63,12 @@ jQuery(window).resize(function() {
 			scheduler.schedule();
 		}
 	});
+	// add the client handler for querying the navigation location.
+	jQuery('#user-location-hint a.useBrowserLocation').click(function() {
+		navigator.geolocation.getCurrentPosition(function(position) {
+			userLocationWidget.setGPSLocation(new GPSLocation(position.coords.latitude, position.coords.longitude));
+		});
+	});
 </script>
 </body>
 </html>
