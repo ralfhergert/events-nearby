@@ -212,7 +212,7 @@ textarea {
 .addEvent {
 	height: 40px;
 	width: 40px;
-	background-color: red;
+	background: url("/css/plus.svg") no-repeat center/55% red;
 	position: fixed;
 	bottom: 10px;
 	left: calc(50% - 20px);
