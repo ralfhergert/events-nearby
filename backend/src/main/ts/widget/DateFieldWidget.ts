@@ -1,4 +1,5 @@
 import {I18n} from '../i18n/I18n';
+import {ValidationHelper} from '../util/ValidationHelper';
 /**
  * This widget allows a user to pick a date and time with respect to the timezone.
  */
@@ -42,17 +43,11 @@ export class DateFieldWidget {
 	protected updateFeedback(): void {
 		let date = this.date();
 		if (date == null || date.toString() == 'Invalid Date') {
-			this.$feedback.text(this.i18n.get('createEventForm_feedback_couldNotParseDate'))
-				.removeClass('validation-ok')
-				.addClass('validation-error');
+			ValidationHelper.markInvalidWithText(this.$feedback, this.i18n.get('createEventForm_feedback_couldNotParseDate'));
 		} else if (date.getTime() < new Date().getTime()) {
-			this.$feedback.text(this.i18n.get('createEventForm_validation_Future'))
-				.removeClass('validation-ok')
-				.addClass('validation-error');
+			ValidationHelper.markInvalidWithText(this.$feedback, this.i18n.get('createEventForm_validation_Future'));
 		} else {
-			this.$feedback.text(date.toLocaleDateString() + ' ' + date.toTimeString())
-				.removeClass('validation-error')
-				.addClass('validation-ok');
+			ValidationHelper.markValid(this.$feedback.text(date.toLocaleDateString() + ' ' + date.toTimeString()));
 		}
 	}
 

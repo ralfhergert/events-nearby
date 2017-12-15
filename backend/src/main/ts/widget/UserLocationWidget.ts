@@ -4,6 +4,7 @@ import {UniversalScheduler} from '../controller/UniversalScheduler';
 import {AddressResolver} from '../controller/_AddressResolver';
 import {I18n} from '../i18n/I18n';
 import {GPSLocation} from '../model/GPSLocation';
+import {ValidationHelper} from '../util/ValidationHelper';
 
 export class UserLocationWidget {
 	readonly $input: any;
@@ -28,10 +29,10 @@ export class UserLocationWidget {
 		this.addressResolver.addLocalEventListener({
 			updateEntity: function(address: Address) {
 				if (address == null) {
-					thisObj.$input.removeClass('validation-ok').addClass('validation-error');
+					ValidationHelper.markInvalid(thisObj.$input);
 					thisObj.updateGPSLocation(null);
 				} else {
-					thisObj.$input.removeClass('validation-error').addClass('validation-ok');
+					ValidationHelper.markValid(thisObj.$input);
 					thisObj.updateGPSLocation(new GPSLocation(address.lat, address.lon));
 				}
 			}

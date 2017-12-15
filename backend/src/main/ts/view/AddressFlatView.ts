@@ -1,6 +1,7 @@
 import {EntityListener} from '../controller/RequestController';
 import {Address} from '../model/Address';
 import {I18n} from '../i18n/I18n';
+import {ValidationHelper} from '../util/ValidationHelper';
 
 /**
  * This view renders the given address in a flat read-only view.
@@ -18,15 +19,10 @@ export class AddressFlatView implements EntityListener<Address> {
 	public updateEntity(address: Address) {
 		let thisObj = this;
 		if (address == null) {
-			this.$target
-				.text(this.i18n.get('addressFlatView_unknownAddress'))
-				.removeClass('validation-ok')
-				.addClass('validation-error');
+			ValidationHelper.markInvalidWithText(this.$target, this.i18n.get('addressFlatView_unknownAddress'));
 		} else {
 			// update the contents.
-			this.$target.empty()
-				.removeClass('validation-error')
-				.addClass('validation-ok')
+			ValidationHelper.markValid(this.$target.empty())
 				.append(jQuery('<span class="address">').text(address.street))
 				.append(' ')
 				.append(jQuery('<span class="houseNumber">').text(address.houseNumber))

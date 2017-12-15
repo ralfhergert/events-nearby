@@ -10,6 +10,7 @@ import {SubmitAction} from './SubmitAction';
 import {ValidationDoneListener} from './ValidationDoneListener';
 import {I18n} from '../i18n/I18n';
 import {ImageUploadWidget} from '../widget/ImageUploadWidget';
+import {ValidationHelper} from '../util/ValidationHelper';
 
 export class CreateEventAction implements SubmitAction {
 	private $target: any; // should be a jQuery node.
@@ -85,7 +86,7 @@ export class CreateEventAction implements SubmitAction {
 				thisObj.errorListener.forEach(listener => { listener.resumeToNormal(); });
 				thisObj.$target.find('#event-id').val(data.id);
 				// all ok - remove validation messages
-				thisObj.$target.find('[name]').removeClass('validation-error').addClass('validation-ok');
+				ValidationHelper.markValid(thisObj.$target.find('[name]'));
 				thisObj.$target.find('#submit').removeClass('unarmed').addClass('armed');
 				thisObj.$target.find('.validation-message').slideUp();
 				// inform all validation listeners.
@@ -103,7 +104,7 @@ export class CreateEventAction implements SubmitAction {
 					let response = JSON.parse(jqXHR.responseText);
 					if (response != null && response['errors'] != null) {
 						// set all fields ok.
-						thisObj.$target.find('[name]').removeClass('validation-error').addClass('validation-ok');
+						ValidationHelper.markValid(thisObj.$target.find('[name]'));
 						// mark all existing validation messages.
 						thisObj.$target.find('.validation-message').addClass('unconfirmed');
 						// mark all fields which got still complains.
@@ -111,7 +112,7 @@ export class CreateEventAction implements SubmitAction {
 							let $field = thisObj.$target.find('[name="' + error['field'] + '"]')
 								.not('[data-ignore-validation-error-' + error['code'] + ']');
 							if ($field.length > 0) {
-								$field.removeClass('validation-ok').addClass('validation-error');
+								ValidationHelper.markInvalid($field);
 								// render a validation message after this field.
 								let $message = thisObj.$target.find('[data-name="' + error['field'] + '"].validation-message');
 								if ($message.length > 0) {
