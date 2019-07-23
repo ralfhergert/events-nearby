@@ -44,7 +44,8 @@ public class NominatimGeoCoderClient {
 	protected HttpClient createClient() {
 		return HttpClientBuilder.create()
 			.setUserAgent(nominatimUserAgent)
-			.setConnectionReuseStrategy(new NoConnectionReuseStrategy()).build();
+			.setConnectionReuseStrategy(new NoConnectionReuseStrategy())
+			.build();
 	}
 
 	protected HttpHost createHost() {
