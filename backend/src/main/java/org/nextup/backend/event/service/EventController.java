@@ -26,15 +26,17 @@ public class EventController {
 
 	@RequestMapping(path = "api/event", method = RequestMethod.GET)
 	public Event getEvent(@RequestParam(value="id") UUID id) {
-		return new Event(eventRepository.findOne(id));
+		return eventRepository.findById(id)
+			.map(Event::new)
+			.orElse(null);
 	}
 
 	@RequestMapping(path = "api/event", method = RequestMethod.POST)
 	public Event saveEvent(@Valid @RequestBody Event event, @RequestParam(value="validateOnly", required = false, defaultValue = "false") final boolean validationOnly) {
-		EventEntity entity = event.getId() != null ? eventRepository.findOne(event.getId()) : null;
-		if (entity == null) {
-			entity = new EventEntity();
-		}
+		final EventEntity entity = event.getId() != null
+			? eventRepository.findById(event.getId()).orElse(new EventEntity())
+			: new EventEntity();
+
 		entity.setTitle(event.getTitle());
 		entity.setDescription(event.getDescription());
 		entity.setImageId(event.getImageId());

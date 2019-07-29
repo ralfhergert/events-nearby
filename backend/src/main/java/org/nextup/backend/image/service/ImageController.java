@@ -25,19 +25,15 @@ public class ImageController {
 
 	@RequestMapping(path = "api/image/{id}", method = RequestMethod.GET)
 	public byte[] uploadImage(@NotNull @PathVariable("id") UUID id) {
-		ImageEntity entity = imageRepository.findOne(id);
-		if (entity != null) {
-			return entity.getImage();
-		}
-		return null;
+		return imageRepository.findById(id)
+			.map(ImageEntity::getImage)
+			.orElse(null);
 	}
 
 	@RequestMapping(path = "api/image/{id}", method = RequestMethod.DELETE)
 	public void deleteImage(@NotNull @PathVariable("id") UUID id) {
-		ImageEntity entity = imageRepository.findOne(id);
-		if (entity != null) {
-			// TODO check ownership
-			imageRepository.delete(entity);
-		}
+		// TODO check ownership
+		imageRepository.findById(id)
+			.ifPresent(entity -> imageRepository.delete(entity));
 	}
 }
